@@ -1196,11 +1196,22 @@ function getFirebaseConfig() {
 }
 function saveFirebaseConfig(raw) {
   try {
-    JSON.parse(raw); // validate JSON
-    localStorage.setItem('qaprep_fb_config', raw);
+    // Firebase console gives JS syntax — strip comment lines, variable declaration, trailing semicolon
+    let cleaned = raw
+      .replace(/\/\/[^\n]*/g, '')          // remove // comment lines
+      .replace(/\/\*[\s\S]*?\*\//g, '')    // remove /* */ comments
+      .replace(/^\s*const\s+\w+\s*=\s*/m, '') // remove "const firebaseConfig = "
+      .replace(/;\s*$/, '')                // remove trailing ;
+      .trim();
+    // Parse as a JS object expression (handles unquoted keys Firebase uses)
+    const config = Function('return (' + cleaned + ')')();
+    if (!config || !config.projectId) throw new Error('projectId not found — make sure you pasted the full config block.');
+    localStorage.setItem('qaprep_fb_config', JSON.stringify(config));
     alert('Firebase config saved. Reloading…');
     location.reload();
-  } catch { alert('Invalid JSON — please paste the exact config object from Firebase console.'); }
+  } catch(e) {
+    alert('Could not parse Firebase config:\n' + e.message + '\n\nPaste the full block including "const firebaseConfig = { ... };" or just the { ... } object.');
+  }
 }
 function clearFirebaseConfig() {
   localStorage.removeItem('qaprep_fb_config');
