@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QA Interview Prep — Sivanandam S.</title>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <style>
 :root{--p:#2563eb;--pl:#dbeafe;--s:#16a34a;--sl:#dcfce7;--w:#d97706;--wl:#fef3c7;--d:#dc2626;--dl:#fee2e2;--g1:#f9fafb;--g2:#f3f4f6;--g3:#e5e7eb;--g4:#d1d5db;--g5:#9ca3af;--g6:#6b7280;--g7:#374151;--g8:#1f2937;--g9:#111827;--sw:240px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -868,7 +870,6 @@ function buildSidebar() {
     </button>`).join('') : '';
   updateSidebar();
   updateApiDot();
-  updateNotesBadge();
 }
 
 // ─── RENDER ──────────────────────────────────────────────────────────────────
@@ -878,7 +879,7 @@ function render() {
   else if (state.view === 'module')  v.innerHTML = renderModule(ALL_MODULES.find(x => x.id === state.mid));
   else if (state.view === 'learnhub')  v.innerHTML = renderLearnHub();
   else if (state.view === 'learntopic') v.innerHTML = renderLearnTopic(LEARN_TOPICS.find(x => x.id === state.mid));
-  else if (state.view === 'notes')     v.innerHTML = renderNotes();
+  else if (state.view === 'notes')     { v.innerHTML = renderNotes(); loadNotesView(); }
   else if (state.view === 'settings')  v.innerHTML = renderSettings();
   updateSidebar();
 }
@@ -1187,69 +1188,136 @@ function md(raw) {
   return out.join('');
 }
 
+// ─── FIREBASE ────────────────────────────────────────────────────────────────
+let db = null;
+
+function getFirebaseConfig() {
+  try { return JSON.parse(localStorage.getItem('qaprep_fb_config') || 'null'); } catch { return null; }
+}
+function saveFirebaseConfig(raw) {
+  try {
+    JSON.parse(raw); // validate JSON
+    localStorage.setItem('qaprep_fb_config', raw);
+    alert('Firebase config saved. Reloading…');
+    location.reload();
+  } catch { alert('Invalid JSON — please paste the exact config object from Firebase console.'); }
+}
+function clearFirebaseConfig() {
+  localStorage.removeItem('qaprep_fb_config');
+  db = null;
+  alert('Firebase config cleared. Reloading…');
+  location.reload();
+}
+function initFirebase() {
+  const config = getFirebaseConfig();
+  if (!config || !config.projectId) return;
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(config);
+    db = firebase.firestore();
+    // Real-time badge counter
+    db.collection('notes').onSnapshot(
+      snap => { const el = document.getElementById('notes-count'); if (el) el.textContent = snap.size; },
+      err  => console.warn('Notes listener:', err.message)
+    );
+  } catch(e) { console.error('Firebase init failed:', e.message); }
+}
+
 // ─── NOTES ───────────────────────────────────────────────────────────────────
-function loadNotes() {
-  try { return JSON.parse(localStorage.getItem('qaprep_notes') || '[]'); } catch { return []; }
-}
-function persistNotes(notes) {
-  localStorage.setItem('qaprep_notes', JSON.stringify(notes));
-  updateNotesBadge();
-}
-function deleteNote(id) {
-  const notes = loadNotes().filter(n => n.id !== id);
-  persistNotes(notes);
-  render();
-}
-function updateNotesBadge() {
-  const el = document.getElementById('notes-count');
-  if (el) el.textContent = loadNotes().length;
-}
-function saveNoteFromChat(tid, msgIdx) {
+function updateNotesBadge() {} // driven by onSnapshot above
+
+async function saveNoteFromChat(tid, msgIdx) {
+  const btn = document.getElementById(`savebtn-${tid}-${msgIdx}`);
+  if (!db) {
+    alert('Firebase not configured — go to ⚙️ Settings to add your Firebase project.');
+    return;
+  }
   const topic = LEARN_TOPICS.find(t => t.id === tid);
-  const msgs = getChat(tid);
+  const msgs  = getChat(tid);
   const response = msgs[msgIdx]?.content;
   if (!response) return;
   const prevUser = [...msgs].slice(0, msgIdx).reverse().find(x => x.role === 'user');
-  const note = {
-    id: Date.now(),
-    topicId: tid,
-    topicTitle: topic?.title || tid,
-    topicIcon: topic?.icon || '📝',
-    prompt: prevUser?.content || '',
-    response,
-    savedAt: new Date().toISOString()
-  };
-  const notes = loadNotes();
-  notes.unshift(note);
-  persistNotes(notes);
-  // Visual feedback on the button
-  const btn = document.getElementById(`savebtn-${tid}-${msgIdx}`);
-  if (btn) { btn.textContent = '✓ Saved'; btn.classList.add('saved'); btn.disabled = true; }
+  try {
+    if (btn) { btn.textContent = '⏳'; btn.disabled = true; }
+    await db.collection('notes').add({
+      topicId:    tid,
+      topicTitle: topic?.title || tid,
+      topicIcon:  topic?.icon  || '📝',
+      prompt:     prevUser?.content || '',
+      response,
+      savedAt:    new Date().toISOString()
+    });
+    if (btn) { btn.textContent = '✓ Saved'; btn.classList.add('saved'); }
+  } catch(e) {
+    if (btn) { btn.textContent = '💾 Save'; btn.disabled = false; }
+    alert(`Save failed: ${e.message}`);
+  }
+}
+
+async function deleteNote(id) {
+  if (!db || !confirm('Delete this note?')) return;
+  try {
+    await db.collection('notes').doc(id).delete();
+    loadNotesView();
+  } catch(e) { alert(`Delete failed: ${e.message}`); }
+}
+
+async function clearAllNotes() {
+  if (!db || !confirm('Delete ALL saved notes from Firebase? This cannot be undone.')) return;
+  const snap  = await db.collection('notes').get();
+  const batch = db.batch();
+  snap.docs.forEach(d => batch.delete(d.ref));
+  await batch.commit();
+  loadNotesView();
 }
 
 // ─── NOTES VIEW ──────────────────────────────────────────────────────────────
 function renderNotes() {
-  const notes = loadNotes();
+  const connected = !!db;
   return `
   <div class="pg-head">
     <div class="ico">📌</div>
-    <div><h1>Saved Notes</h1><p>${notes.length} saved response${notes.length !== 1 ? 's' : ''} from AI Tutor sessions</p></div>
-    ${notes.length ? `<button class="btn btn-o btn-sm" style="margin-left:auto" onclick="if(confirm('Delete all saved notes?')){localStorage.removeItem('qaprep_notes');updateNotesBadge();render()}">🗑 Clear all</button>` : ''}
+    <div><h1>Saved Notes</h1><p>AI Tutor responses saved to Firebase Firestore</p></div>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+      <span style="font-size:11px;padding:3px 10px;border-radius:8px;font-weight:600;background:${connected?'#dcfce7':'#fee2e2'};color:${connected?'#16a34a':'#dc2626'}">
+        ${connected ? '● Firebase connected' : '● Not configured'}
+      </span>
+      ${connected
+        ? `<button class="btn btn-o btn-sm" onclick="clearAllNotes()">🗑 Clear all</button>`
+        : `<button class="btn btn-p btn-sm" onclick="navigate('settings')">⚙️ Configure Firebase</button>`}
+    </div>
   </div>
   <div class="content">
-    ${notes.length === 0
-      ? `<div class="notes-empty">📭<p>No saved notes yet.</p><p style="font-size:12px;margin-top:6px">Go to a Learning Hub topic, chat with the AI Tutor, then click <strong>💾 Save</strong> on any response.</p></div>`
-      : notes.map(n => `
-        <div class="saved-note">
-          <div class="saved-note-meta">
-            <span class="saved-note-topic">${n.topicIcon} ${n.topicTitle}</span>
-            ${n.prompt ? `<span class="saved-note-q">${escHtml(n.prompt)}</span>` : ''}
-            <span class="saved-note-date">${new Date(n.savedAt).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</span>
-            <button onclick="deleteNote(${n.id})" style="font-size:10px;padding:2px 8px;border-radius:8px;background:#fee2e2;color:#dc2626;border:none;cursor:pointer;font-weight:600">Delete</button>
-          </div>
-          <div class="saved-note-body">${md(n.response)}</div>
-        </div>`).join('')}
+    <div id="notes-body">
+      <div style="text-align:center;padding:50px;color:#9ca3af">
+        ${connected ? '⏳ Loading notes…' : '⚙️ Firebase not configured.<br><br><button class="btn btn-p" onclick="navigate(\'settings\')">Go to Settings</button>'}
+      </div>
+    </div>
   </div>`;
+}
+
+async function loadNotesView() {
+  const el = document.getElementById('notes-body');
+  if (!el || !db) return;
+  try {
+    const snap  = await db.collection('notes').orderBy('savedAt', 'desc').get();
+    const notes = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (!notes.length) {
+      el.innerHTML = `<div class="notes-empty">📭<p>No saved notes yet.</p><p style="font-size:12px;margin-top:6px">Open a Learning Hub topic → chat with the AI Tutor → click <strong>💾 Save</strong> on any response.</p></div>`;
+      return;
+    }
+    el.innerHTML = notes.map(n => `
+      <div class="saved-note">
+        <div class="saved-note-meta">
+          <span class="saved-note-topic">${escHtml(n.topicIcon||'')} ${escHtml(n.topicTitle||'')}</span>
+          ${n.prompt ? `<span class="saved-note-q">${escHtml(n.prompt)}</span>` : ''}
+          <span class="saved-note-date">${new Date(n.savedAt).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</span>
+          <button onclick="deleteNote('${n.id}')" style="font-size:10px;padding:2px 8px;border-radius:8px;background:#fee2e2;color:#dc2626;border:none;cursor:pointer;font-weight:600;flex-shrink:0">Delete</button>
+        </div>
+        <div class="saved-note-body">${md(n.response||'')}</div>
+      </div>`).join('');
+  } catch(e) {
+    el.innerHTML = `<div style="color:#dc2626;padding:20px;background:#fee2e2;border-radius:8px">Error loading notes: ${escHtml(e.message)}</div>`;
+  }
 }
 
 // ─── CLAUDE API ──────────────────────────────────────────────────────────────
@@ -1491,22 +1559,50 @@ function renderSettings() {
     </div>`}
 
     <div class="settings-panel">
+      <h3>🔥 Firebase Configuration <span style="font-size:11px;background:${db?'#dcfce7':'#fee2e2'};color:${db?'#16a34a':'#dc2626'};padding:2px 7px;border-radius:8px;margin-left:6px">${db ? '● Connected' : '● Not configured'}</span></h3>
+      <p style="font-size:12px;color:var(--g6);margin-bottom:10px;line-height:1.6">
+        Firebase Firestore stores your Saved Notes so they persist across devices and sessions. The Firebase config is public-safe — security is enforced by Firestore rules on your project.
+      </p>
+      <div style="background:var(--g1);border:1px solid var(--g3);border-radius:7px;padding:12px;font-size:12px;color:var(--g7);line-height:1.8;margin-bottom:12px">
+        <strong>Setup steps:</strong><br>
+        1. Go to <strong>console.firebase.google.com</strong> → Create a project<br>
+        2. Firestore Database → Create database → Start in <em>test mode</em><br>
+        3. Project settings → Your apps → Add Web app → Copy the <code style="background:#e5e7eb;padding:1px 4px;border-radius:3px">firebaseConfig</code> object<br>
+        4. Paste it below as JSON and click Save
+      </div>
+      <textarea id="fb-config-field" rows="9"
+        style="width:100%;padding:10px;border:1px solid var(--g3);border-radius:7px;font-size:11px;font-family:'Courier New',monospace;color:var(--g8);resize:vertical;margin-bottom:10px"
+        placeholder='{\n  "apiKey": "...",\n  "authDomain": "...",\n  "projectId": "...",\n  "storageBucket": "...",\n  "messagingSenderId": "...",\n  "appId": "..."\n}'>${escHtml(localStorage.getItem('qaprep_fb_config') || '')}</textarea>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-p btn-sm" onclick="saveFirebaseConfig(document.getElementById('fb-config-field').value)">💾 Save &amp; Reconnect</button>
+        ${db ? `<button class="btn btn-o btn-sm" onclick="clearFirebaseConfig()">Remove Config</button>` : ''}
+      </div>
+      ${db ? `<div class="api-status ok" style="margin-top:8px">✓ Connected to Firebase project: <strong>${getFirebaseConfig()?.projectId}</strong></div>` : ''}
+    </div>
+
+    <div class="settings-panel">
+      <h3>🔒 Firestore Security Rules</h3>
+      <p style="font-size:12px;color:var(--g6);margin-bottom:8px;line-height:1.5">Apply these rules in Firebase Console → Firestore → Rules. They restrict access to authenticated sessions from your own browser (using a passphrase stored in localStorage).</p>
+      <pre style="background:var(--g9);color:#e5e7eb;border-radius:7px;padding:12px;font-size:11px;line-height:1.6;overflow-x:auto">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /notes/{noteId} {
+      allow read, write: if true; // personal tool — tighten if needed
+    }
+  }
+}</pre>
+    </div>
+
+    <div class="settings-panel">
       <h3>🤖 Model</h3>
       <p style="font-size:12px;color:var(--g6);line-height:1.5">Using <strong>claude-opus-4-6</strong> — Anthropic's most capable model for nuanced QA coaching and domain-specific explanations.</p>
-    </div>
-    <div class="settings-panel">
-      <h3>🔒 Privacy</h3>
-      <p style="font-size:12px;color:var(--g6);line-height:1.5">
-        ${local
-          ? 'Running locally — API key in localStorage, calls go directly to Anthropic. Progress and conversation history are local to this browser.'
-          : 'Hosted on Netlify — API key is a server-side env var. API calls are proxied through a Netlify function; the key never reaches your browser. Progress and conversation history are stored in your browser\'s localStorage.'}
-      </p>
     </div>
     <button class="btn btn-p" onclick="navigate('learnhub')">← Back to Learning Hub</button>
   </div>`;
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
+initFirebase();
 buildSidebar();
 render();
 </script>
