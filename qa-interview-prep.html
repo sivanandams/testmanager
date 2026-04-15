@@ -132,7 +132,7 @@ textarea.ans:focus{outline:none;border-color:var(--p)}
 .ai-msgs{max-height:340px;overflow-y:auto;margin-bottom:10px;display:flex;flex-direction:column;gap:8px}
 .ai-msg{padding:10px 12px;border-radius:8px;font-size:12px;line-height:1.6;max-width:88%}
 .ai-msg.user{background:#7c3aed;color:#fff;align-self:flex-end;border-radius:8px 8px 2px 8px}
-.ai-msg.ai{background:#fff;border:1px solid #e9d5ff;color:var(--g8);align-self:flex-start;border-radius:8px 8px 8px 2px;white-space:pre-wrap}
+.ai-msg.ai{background:#fff;border:1px solid #e9d5ff;color:var(--g8);align-self:flex-start;border-radius:8px 8px 8px 2px;white-space:normal;position:relative;max-width:92%}
 .ai-msg.thinking{background:#f3e8ff;color:#6d28d9;font-style:italic;align-self:flex-start}
 .ai-input-row{display:flex;gap:8px}
 .ai-input{flex:1;padding:9px 12px;border:1px solid #e9d5ff;border-radius:7px;font-size:12px;font-family:inherit;color:var(--g8);background:#fff}
@@ -151,7 +151,33 @@ textarea.ans:focus{outline:none;border-color:var(--p)}
 .api-status{font-size:11px;margin-top:8px;padding:6px 10px;border-radius:6px}
 .api-status.ok{background:#dcfce7;color:#16a34a}.api-status.missing{background:#fee2e2;color:#dc2626}
 .nav-lbl-learn{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#a78bfa;padding:10px 16px 4px}
-.exercise-out{background:#1e1b4b;color:#e0e7ff;border-radius:8px;padding:14px;font-size:12px;line-height:1.6;margin-top:10px;white-space:pre-wrap;font-family:'Courier New',monospace;display:none}
+.exercise-out{background:#faf5ff;border:1px solid #e9d5ff;border-radius:8px;padding:14px;font-size:12px;line-height:1.6;margin-top:10px;display:none}
+/* ── Markdown rendering ── */
+.md-h1{font-size:15px;font-weight:700;color:#111827;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid #e9d5ff}
+.md-h2{font-size:14px;font-weight:700;color:#111827;margin:12px 0 5px}
+.md-h3{font-size:13px;font-weight:700;color:#374151;margin:10px 0 4px}
+.md-p{margin:4px 0;line-height:1.6;font-size:12px}
+.md-ul,.md-ol{margin:6px 0 6px 18px;padding:0}
+.md-ul li,.md-ol li{margin:3px 0;font-size:12px;line-height:1.6}
+.md-pre{background:#1e1e2e;color:#e2e8f0;border-radius:7px;padding:12px 14px;overflow-x:auto;margin:8px 0;font-size:11px;line-height:1.6;font-family:'Courier New',monospace;white-space:pre}
+.md-code{background:#f3f4f6;color:#374151;padding:1px 5px;border-radius:3px;font-size:11px;font-family:'Courier New',monospace}
+.md-hr{border:none;border-top:1px solid #e9d5ff;margin:10px 0}
+.md-strong{font-weight:700}
+.md-em{font-style:italic}
+/* ── Save button on AI bubbles ── */
+.save-btn{position:absolute;top:7px;right:7px;font-size:10px;padding:2px 8px;border-radius:8px;background:#ede9fe;color:#6d28d9;border:none;cursor:pointer;font-weight:600;opacity:0;transition:opacity .15s;white-space:nowrap}
+.ai-msg.ai:hover .save-btn{opacity:1}
+.save-btn.saved{background:#dcfce7;color:#16a34a;opacity:1}
+/* ── Saved Notes view ── */
+.saved-note{background:#fff;border:1px solid #e9d5ff;border-radius:10px;padding:18px;margin-bottom:12px}
+.saved-note-meta{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.saved-note-topic{font-size:10px;font-weight:700;background:#ede9fe;color:#6d28d9;padding:2px 8px;border-radius:8px;text-transform:uppercase;flex-shrink:0}
+.saved-note-q{font-size:13px;font-weight:500;color:#111827;flex:1;min-width:0}
+.saved-note-date{font-size:10px;color:#9ca3af;flex-shrink:0}
+.saved-note-body{border-top:1px solid #f3f4f6;padding-top:12px;margin-top:4px}
+.notes-empty{text-align:center;padding:60px 20px;color:#9ca3af}
+.notes-empty p{font-size:14px;margin-top:8px}
+.notes-count{font-size:10px;background:rgba(167,139,250,.25);color:#a78bfa;padding:2px 6px;border-radius:8px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -178,6 +204,10 @@ textarea.ans:focus{outline:none;border-color:var(--p)}
   <button class="nav-btn" onclick="navigate('learnhub')" id="nav-learnhub">
     <span class="ico">📚</span><span class="ttl">All Topics</span>
     <span class="pct" style="background:rgba(167,139,250,.2);color:#a78bfa">9</span>
+  </button>
+  <button class="nav-btn" onclick="navigate('notes')" id="nav-notes">
+    <span class="ico">📌</span><span class="ttl">Saved Notes</span>
+    <span class="notes-count" id="notes-count">0</span>
   </button>
   <div id="nav-learn-topics"></div>
   <div class="nav-lbl">Interview Modules</div>
@@ -793,6 +823,7 @@ function navigate(view, mid) {
   if (view === 'dashboard')    document.getElementById('nav-dashboard')?.classList.add('active');
   else if (view === 'learnhub') document.getElementById('nav-learnhub')?.classList.add('active');
   else if (view === 'learntopic') document.getElementById('nav-learn-' + mid)?.classList.add('active');
+  else if (view === 'notes')     document.getElementById('nav-notes')?.classList.add('active');
   else if (view === 'settings')  document.getElementById('nav-settings')?.classList.add('active');
   else document.getElementById('nav-' + mid)?.classList.add('active');
   render();
@@ -837,6 +868,7 @@ function buildSidebar() {
     </button>`).join('') : '';
   updateSidebar();
   updateApiDot();
+  updateNotesBadge();
 }
 
 // ─── RENDER ──────────────────────────────────────────────────────────────────
@@ -846,6 +878,7 @@ function render() {
   else if (state.view === 'module')  v.innerHTML = renderModule(ALL_MODULES.find(x => x.id === state.mid));
   else if (state.view === 'learnhub')  v.innerHTML = renderLearnHub();
   else if (state.view === 'learntopic') v.innerHTML = renderLearnTopic(LEARN_TOPICS.find(x => x.id === state.mid));
+  else if (state.view === 'notes')     v.innerHTML = renderNotes();
   else if (state.view === 'settings')  v.innerHTML = renderSettings();
   updateSidebar();
 }
@@ -1097,6 +1130,128 @@ function escHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+// ─── MARKDOWN PARSER ─────────────────────────────────────────────────────────
+function md(raw) {
+  if (!raw) return '';
+  // Extract code blocks before any escaping
+  const blocks = [];
+  let s = raw.replace(/```[\w]*\n?([\s\S]*?)```/g, (_, code) => {
+    blocks.push(`<pre class="md-pre"><code>${escHtml(code.trim())}</code></pre>`);
+    return `\x00B${blocks.length - 1}\x00`;
+  });
+  // Escape remaining HTML
+  s = s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // Inline code
+  s = s.replace(/`([^`\n]+)`/g, '<code class="md-code">$1</code>');
+  // Bold+italic, bold, italic
+  s = s.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+  // Process line by line
+  const lines = s.split('\n');
+  const out = [];
+  let inUl = false, inOl = false;
+  const closeList = () => {
+    if (inUl) { out.push('</ul>'); inUl = false; }
+    if (inOl) { out.push('</ol>'); inOl = false; }
+  };
+  for (const line of lines) {
+    const t = line.trim();
+    // Restore code block
+    if (/^\x00B\d+\x00$/.test(t)) {
+      closeList();
+      out.push(blocks[parseInt(t.match(/\d+/)[0])]);
+    } else if (t.startsWith('### ')) {
+      closeList(); out.push(`<div class="md-h3">${t.slice(4)}</div>`);
+    } else if (t.startsWith('## ')) {
+      closeList(); out.push(`<div class="md-h2">${t.slice(3)}</div>`);
+    } else if (t.startsWith('# ')) {
+      closeList(); out.push(`<div class="md-h1">${t.slice(2)}</div>`);
+    } else if (/^[-*] /.test(t)) {
+      if (inOl) { out.push('</ol>'); inOl = false; }
+      if (!inUl) { out.push('<ul class="md-ul">'); inUl = true; }
+      out.push(`<li>${t.slice(2)}</li>`);
+    } else if (/^\d+\. /.test(t)) {
+      if (inUl) { out.push('</ul>'); inUl = false; }
+      if (!inOl) { out.push('<ol class="md-ol">'); inOl = true; }
+      out.push(`<li>${t.replace(/^\d+\. /, '')}</li>`);
+    } else if (/^---+$/.test(t)) {
+      closeList(); out.push('<hr class="md-hr">');
+    } else if (t === '') {
+      closeList(); out.push('<div style="height:5px"></div>');
+    } else {
+      closeList(); out.push(`<div class="md-p">${t}</div>`);
+    }
+  }
+  closeList();
+  return out.join('');
+}
+
+// ─── NOTES ───────────────────────────────────────────────────────────────────
+function loadNotes() {
+  try { return JSON.parse(localStorage.getItem('qaprep_notes') || '[]'); } catch { return []; }
+}
+function persistNotes(notes) {
+  localStorage.setItem('qaprep_notes', JSON.stringify(notes));
+  updateNotesBadge();
+}
+function deleteNote(id) {
+  const notes = loadNotes().filter(n => n.id !== id);
+  persistNotes(notes);
+  render();
+}
+function updateNotesBadge() {
+  const el = document.getElementById('notes-count');
+  if (el) el.textContent = loadNotes().length;
+}
+function saveNoteFromChat(tid, msgIdx) {
+  const topic = LEARN_TOPICS.find(t => t.id === tid);
+  const msgs = getChat(tid);
+  const response = msgs[msgIdx]?.content;
+  if (!response) return;
+  const prevUser = [...msgs].slice(0, msgIdx).reverse().find(x => x.role === 'user');
+  const note = {
+    id: Date.now(),
+    topicId: tid,
+    topicTitle: topic?.title || tid,
+    topicIcon: topic?.icon || '📝',
+    prompt: prevUser?.content || '',
+    response,
+    savedAt: new Date().toISOString()
+  };
+  const notes = loadNotes();
+  notes.unshift(note);
+  persistNotes(notes);
+  // Visual feedback on the button
+  const btn = document.getElementById(`savebtn-${tid}-${msgIdx}`);
+  if (btn) { btn.textContent = '✓ Saved'; btn.classList.add('saved'); btn.disabled = true; }
+}
+
+// ─── NOTES VIEW ──────────────────────────────────────────────────────────────
+function renderNotes() {
+  const notes = loadNotes();
+  return `
+  <div class="pg-head">
+    <div class="ico">📌</div>
+    <div><h1>Saved Notes</h1><p>${notes.length} saved response${notes.length !== 1 ? 's' : ''} from AI Tutor sessions</p></div>
+    ${notes.length ? `<button class="btn btn-o btn-sm" style="margin-left:auto" onclick="if(confirm('Delete all saved notes?')){localStorage.removeItem('qaprep_notes');updateNotesBadge();render()}">🗑 Clear all</button>` : ''}
+  </div>
+  <div class="content">
+    ${notes.length === 0
+      ? `<div class="notes-empty">📭<p>No saved notes yet.</p><p style="font-size:12px;margin-top:6px">Go to a Learning Hub topic, chat with the AI Tutor, then click <strong>💾 Save</strong> on any response.</p></div>`
+      : notes.map(n => `
+        <div class="saved-note">
+          <div class="saved-note-meta">
+            <span class="saved-note-topic">${n.topicIcon} ${n.topicTitle}</span>
+            ${n.prompt ? `<span class="saved-note-q">${escHtml(n.prompt)}</span>` : ''}
+            <span class="saved-note-date">${new Date(n.savedAt).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</span>
+            <button onclick="deleteNote(${n.id})" style="font-size:10px;padding:2px 8px;border-radius:8px;background:#fee2e2;color:#dc2626;border:none;cursor:pointer;font-weight:600">Delete</button>
+          </div>
+          <div class="saved-note-body">${md(n.response)}</div>
+        </div>`).join('')}
+  </div>`;
+}
+
 // ─── CLAUDE API ──────────────────────────────────────────────────────────────
 function getApiKey() { return localStorage.getItem('qaprep_claude_key') || ''; }
 function saveApiKey(k) {
@@ -1222,7 +1377,15 @@ function renderMsgs(tid) {
   const el = document.getElementById(`msgs-${tid}`);
   if (!el) return;
   const msgs = getChat(tid);
-  el.innerHTML = msgs.map(m => `<div class="ai-msg ${m.role==='user'?'user':'ai'}">${escHtml(m.content)}</div>`).join('');
+  el.innerHTML = msgs.map((m, i) => {
+    if (m.role === 'user') {
+      return `<div class="ai-msg user">${escHtml(m.content)}</div>`;
+    }
+    return `<div class="ai-msg ai">
+      ${md(m.content)}
+      <button class="save-btn" id="savebtn-${tid}-${i}" onclick="saveNoteFromChat('${tid}',${i})">💾 Save</button>
+    </div>`;
+  }).join('');
   el.scrollTop = el.scrollHeight;
 }
 
@@ -1284,9 +1447,9 @@ async function generateExercise(tid) {
       [{ role: 'user', content: `Generate a practical, hands-on exercise for a senior QA Manager to practise ${topic.title}. Include: a realistic scenario, specific tasks to complete, success criteria, and a sample solution. Keep it concise and actionable.` }],
       topic.aiContext
     );
-    out.textContent = result;
+    out.innerHTML = md(result);
   } catch(e) {
-    out.textContent = e.message === 'NO_KEY' ? 'Please add your Claude API key in Settings first.' : `Error: ${e.message}`;
+    out.innerHTML = `<span style="color:#dc2626">${e.message === 'NO_KEY' ? 'Please add your Claude API key in Settings first.' : `Error: ${escHtml(e.message)}`}</span>`;
   }
 }
 
