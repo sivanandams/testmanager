@@ -2,6 +2,12 @@
   publish = "."
   functions = "netlify/functions"
 
+# Serve the app at the root URL
+[[redirects]]
+  from   = "/"
+  to     = "/qa-interview-prep.html"
+  status = 200
+
 # Proxy /api/claude → Netlify function
 [[redirects]]
   from   = "/api/claude"
