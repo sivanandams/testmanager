@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Interview Prep — Sivanandam S.</title>
+<style>
+:root{--p:#2563eb;--pl:#dbeafe;--s:#16a34a;--sl:#dcfce7;--w:#d97706;--wl:#fef3c7;--d:#dc2626;--dl:#fee2e2;--g1:#f9fafb;--g2:#f3f4f6;--g3:#e5e7eb;--g4:#d1d5db;--g5:#9ca3af;--g6:#6b7280;--g7:#374151;--g8:#1f2937;--g9:#111827;--sw:260px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--g1);color:var(--g8);min-height:100vh}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:var(--sw);background:var(--g9);color:#fff;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
+.main{margin-left:var(--sw);flex:1}
+.sb-head{padding:18px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sb-head h2{font-size:15px;font-weight:700;color:#fff}
+.sb-head p{font-size:11px;color:var(--g5);margin-top:2px}
+.ring-wrap{padding:16px;border-bottom:1px solid rgba(255,255,255,.1);text-align:center}
+.ring-wrap svg{display:block;margin:0 auto}
+.ring-pct{font-size:22px;font-weight:800;color:#fff;line-height:1}
+.ring-lbl{font-size:10px;color:var(--g5);margin-top:2px}
+.ready-badge{margin:10px 12px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;text-align:center;display:none}
+.nav-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--g6);padding:10px 16px 4px}
+.nav-btn{display:flex;align-items:center;gap:8px;padding:9px 16px;cursor:pointer;border-radius:6px;margin:1px 8px;font-size:12px;color:var(--g4);border:none;background:none;width:calc(100% - 16px);text-align:left;transition:background .15s}
+.nav-btn:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-btn.active{background:var(--p);color:#fff}
+.nav-btn .ico{font-size:15px;flex-shrink:0}
+.nav-btn .ttl{flex:1;line-height:1.3}
+.nav-btn .pct{font-size:10px;background:rgba(255,255,255,.12);padding:2px 6px;border-radius:8px;flex-shrink:0}
+.nav-btn.active .pct{background:rgba(255,255,255,.25)}
+.pg-head{background:#fff;border-bottom:1px solid var(--g3);padding:18px 28px;display:flex;align-items:center;gap:10px}
+.pg-head .ico{font-size:26px}
+.pg-head h1{font-size:20px;font-weight:700;color:var(--g9)}
+.pg-head p{font-size:13px;color:var(--g6);margin-top:2px}
+.content{padding:22px 28px;max-width:900px}
+.card{background:#fff;border:1px solid var(--g3);border-radius:10px;padding:18px;margin-bottom:14px}
+.card-title{font-size:15px;font-weight:600;color:var(--g9);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:22px}
+.mod-card{background:#fff;border:1px solid var(--g3);border-radius:10px;padding:18px;cursor:pointer;transition:all .2s}
+.mod-card:hover{border-color:var(--p);box-shadow:0 4px 12px rgba(37,99,235,.1)}
+.mod-card-hd{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.mod-card-ico{font-size:26px}
+.mod-card-ttl{font-size:13px;font-weight:600;color:var(--g9);line-height:1.3}
+.mod-card-meta{font-size:11px;color:var(--g5);margin-top:3px}
+.pbar-wrap{height:5px;background:var(--g2);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.pbar{height:100%;border-radius:3px;background:var(--p);transition:width .4s}
+.pbar.done{background:var(--s)}
+.plbl{font-size:11px;color:var(--g5);display:flex;justify-content:space-between}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:8px;text-transform:uppercase;letter-spacing:.4px}
+.bm{background:#dbeafe;color:#1e40af}.bi{background:#f3e8ff;color:#6d28d9}.bs{background:#fef3c7;color:#92400e}.bc{background:#d1fae5;color:#065f46}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--g3);margin-bottom:18px}
+.tab{padding:9px 14px;font-size:13px;font-weight:500;color:var(--g5);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;border-radius:4px 4px 0 0;transition:all .15s}
+.tab:hover{color:var(--p);background:var(--pl)}
+.tab.active{color:var(--p);border-bottom-color:var(--p);font-weight:600}
+.q-card{background:#fff;border:1px solid var(--g3);border-radius:10px;padding:20px;margin-bottom:14px}
+.q-num{font-size:11px;font-weight:600;color:var(--p);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;font-weight:500;color:var(--g9);margin-bottom:16px;line-height:1.5}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:2px solid var(--g3);border-radius:7px;margin-bottom:7px;cursor:pointer;font-size:13px;color:var(--g7);transition:all .15s}
+.opt:hover{border-color:var(--p);background:var(--pl)}
+.opt.sel{border-color:var(--p);background:var(--pl)}
+.opt.correct{border-color:var(--s);background:var(--sl);color:var(--s)}
+.opt.wrong{border-color:var(--d);background:var(--dl);color:var(--d)}
+.opt.show-ok{border-color:var(--s);background:var(--sl);color:var(--s)}
+.opt-ltr{font-weight:700;font-size:12px;min-width:20px;height:20px;border-radius:50%;background:var(--g3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.opt.correct .opt-ltr,.opt.show-ok .opt-ltr{background:var(--s);color:#fff}
+.opt.wrong .opt-ltr{background:var(--d);color:#fff}
+.expl{margin-top:14px;padding:10px 14px;background:var(--g1);border-left:4px solid var(--p);border-radius:0 7px 7px 0;font-size:12px;color:var(--g7);line-height:1.5}
+.expl strong{color:var(--p)}
+.btn{padding:9px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-p{background:var(--p);color:#fff}.btn-p:hover{background:#1d4ed8}.btn-p:disabled{background:var(--g4);cursor:not-allowed}
+.btn-s{background:var(--s);color:#fff}.btn-s:hover{background:#15803d}
+.btn-o{background:#fff;color:var(--p);border:2px solid var(--p)}.btn-o:hover{background:var(--pl)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.score-wrap{text-align:center;padding:28px}
+.score-circle{width:110px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;margin:0 auto 14px;font-size:30px;font-weight:800}
+.score-circle.pass{background:var(--sl);color:var(--s)}.score-circle.fail{background:var(--dl);color:var(--d)}
+.mq-card{background:#fff;border:1px solid var(--g3);border-radius:10px;padding:20px;margin-bottom:14px}
+.mq-hd{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.mq-num{background:var(--p);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.mq-txt{font-size:15px;font-weight:500;color:var(--g9);line-height:1.4;flex:1}
+.mq-cat{font-size:10px;color:var(--g5);background:var(--g2);padding:2px 7px;border-radius:8px;flex-shrink:0}
+textarea.ans{width:100%;min-height:120px;padding:10px;border:2px solid var(--g3);border-radius:7px;font-size:13px;font-family:inherit;color:var(--g8);resize:vertical;margin-bottom:10px;transition:border-color .15s}
+textarea.ans:focus{outline:none;border-color:var(--p)}
+.model-ans{background:var(--g1);border:1px solid var(--g3);border-radius:7px;padding:14px;margin-top:10px}
+.model-ans h4{font-size:11px;font-weight:700;color:var(--s);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.model-ans p{font-size:13px;color:var(--g7);line-height:1.6}
+.stars{display:flex;align-items:center;gap:6px;margin-top:10px}
+.stars span{font-size:12px;color:var(--g6)}
+.star{font-size:20px;cursor:pointer;border:none;background:none;color:var(--g4);transition:transform .1s}
+.star:hover{transform:scale(1.2)}.star.on{color:#f59e0b}
+.sc-box{background:var(--wl);border:1px solid #fde68a;border-radius:8px;padding:14px;font-size:13px;color:var(--g8);line-height:1.6;margin-bottom:14px}
+.crit-list{list-style:none;margin:8px 0}
+.crit-list li{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--g7);padding:5px 0;border-bottom:1px solid var(--g2);line-height:1.4}
+.crit-list li::before{content:'✓';color:var(--s);font-weight:700;flex-shrink:0}
+.ideal-box{background:var(--sl);border:1px solid #86efac;border-radius:7px;padding:14px;margin-top:12px;font-size:13px;color:var(--g7);line-height:1.6;display:none}
+.code-block{background:var(--g9);color:#e5e7eb;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.6;overflow-x:auto;margin:10px 0;white-space:pre}
+.hint-box{background:#fefce8;border:1px solid #fde047;border-radius:7px;padding:10px 14px;margin:6px 0;font-size:12px;color:var(--g7)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.stat-card{background:#fff;border:1px solid var(--g3);border-radius:9px;padding:14px;text-align:center}
+.stat-val{font-size:26px;font-weight:800;color:var(--g9)}
+.stat-lbl{font-size:11px;color:var(--g5);margin-top:3px}
+.stat-card.p .stat-val{color:var(--p)}.stat-card.s .stat-val{color:var(--s)}.stat-card.w .stat-val{color:var(--w)}
+.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.topic-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--g7);padding:7px 10px;background:var(--g1);border-radius:5px}
+.topic-item::before{content:'→';color:var(--p);font-weight:700}
+.ready-banner{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border-radius:10px;padding:18px 22px;margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.ready-banner .trophy{font-size:36px}
+.ready-banner h2{font-size:18px;font-weight:700}
+.ready-banner p{font-size:13px;opacity:.9;margin-top:2px}
+.sep{border:none;border-top:1px solid var(--g3);margin:14px 0}
+.flex{display:flex}.gap-2{gap:8px}.gap-3{gap:12px}.items-center{align-items:center}.mt-3{margin-top:12px}.mt-4{margin-top:16px}.mb-2{margin-bottom:8px}.mb-3{margin-bottom:12px}.text-sm{font-size:12px}.text-gray{color:var(--g5)}.fw{font-weight:600}
+.acc-hd{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 14px;background:var(--g1);border-radius:7px;border:1px solid var(--g3);margin-bottom:6px;font-size:13px;font-weight:500;color:var(--g8)}
+.acc-hd:hover{background:var(--g2)}
+.acc-body{padding:0 14px 14px;border:1px solid var(--g3);border-top:none;border-radius:0 0 7px 7px;margin-top:-6px;margin-bottom:6px;display:none}
+.done-chk{color:var(--s);font-size:15px;margin-left:auto}
+@media(max-width:768px){.sidebar{width:200px}.main{margin-left:200px}.content{padding:14px}.stats-row{grid-template-columns:repeat(2,1fr)}.topic-grid{grid-template-columns:1fr}}
+/* ── Learning Hub ── */
+.learn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:22px}
+.learn-card{background:#fff;border:1px solid var(--g3);border-radius:10px;padding:18px;cursor:pointer;transition:all .2s;position:relative}
+.learn-card:hover{border-color:#7c3aed;box-shadow:0 4px 12px rgba(124,58,237,.12)}
+.learn-card-ico{font-size:26px;margin-bottom:8px}
+.learn-card-ttl{font-size:13px;font-weight:600;color:var(--g9);margin-bottom:4px}
+.learn-card-sum{font-size:11px;color:var(--g6);line-height:1.4}
+.learn-badge{position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;background:#ede9fe;color:#6d28d9;padding:2px 7px;border-radius:8px;text-transform:uppercase}
+.note-card{background:#fff;border:1px solid var(--g3);border-radius:10px;padding:16px;margin-bottom:10px}
+.note-h{font-size:13px;font-weight:600;color:var(--g9);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.note-h::before{content:'';width:3px;height:14px;background:#7c3aed;border-radius:2px;flex-shrink:0}
+.note-b{font-size:12px;color:var(--g7);line-height:1.6}
+.ai-panel{background:#faf5ff;border:1px solid #e9d5ff;border-radius:10px;padding:16px;margin-top:16px}
+.ai-panel-hd{font-size:13px;font-weight:600;color:#6d28d9;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.ai-msgs{max-height:340px;overflow-y:auto;margin-bottom:10px;display:flex;flex-direction:column;gap:8px}
+.ai-msg{padding:10px 12px;border-radius:8px;font-size:12px;line-height:1.6;max-width:88%}
+.ai-msg.user{background:#7c3aed;color:#fff;align-self:flex-end;border-radius:8px 8px 2px 8px}
+.ai-msg.ai{background:#fff;border:1px solid #e9d5ff;color:var(--g8);align-self:flex-start;border-radius:8px 8px 8px 2px;white-space:pre-wrap}
+.ai-msg.thinking{background:#f3e8ff;color:#6d28d9;font-style:italic;align-self:flex-start}
+.ai-input-row{display:flex;gap:8px}
+.ai-input{flex:1;padding:9px 12px;border:1px solid #e9d5ff;border-radius:7px;font-size:12px;font-family:inherit;color:var(--g8);background:#fff}
+.ai-input:focus{outline:none;border-color:#7c3aed}
+.btn-ai{background:#7c3aed;color:#fff;border:none;border-radius:7px;padding:9px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s}
+.btn-ai:hover{background:#6d28d9}.btn-ai:disabled{background:var(--g4);cursor:not-allowed}
+.ai-quick-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.ai-quick{font-size:11px;padding:5px 10px;border-radius:12px;border:1px solid #e9d5ff;background:#fff;color:#6d28d9;cursor:pointer;font-weight:500;transition:all .15s}
+.ai-quick:hover{background:#ede9fe;border-color:#7c3aed}
+.key-missing{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:14px;font-size:12px;color:#92400e;text-align:center}
+.settings-panel{background:#fff;border:1px solid var(--g3);border-radius:10px;padding:18px;margin-bottom:16px}
+.settings-panel h3{font-size:14px;font-weight:600;color:var(--g9);margin-bottom:12px}
+.api-input-row{display:flex;gap:8px;align-items:center}
+.api-key-input{flex:1;padding:9px 12px;border:1px solid var(--g3);border-radius:7px;font-size:12px;font-family:monospace;color:var(--g8)}
+.api-key-input:focus{outline:none;border-color:#7c3aed}
+.api-status{font-size:11px;margin-top:8px;padding:6px 10px;border-radius:6px}
+.api-status.ok{background:#dcfce7;color:#16a34a}.api-status.missing{background:#fee2e2;color:#dc2626}
+.nav-lbl-learn{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#a78bfa;padding:10px 16px 4px}
+.exercise-out{background:#1e1b4b;color:#e0e7ff;border-radius:8px;padding:14px;font-size:12px;line-height:1.6;margin-top:10px;white-space:pre-wrap;font-family:'Courier New',monospace;display:none}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar" id="sidebar">
+  <div class="sb-head">
+    <h2>🎯 QA Interview Prep</h2>
+    <p>Sivanandam S. — 16 yrs exp.</p>
+  </div>
+  <div class="ring-wrap">
+    <svg width="90" height="90" viewBox="0 0 90 90">
+      <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8"/>
+      <circle id="ring-circle" cx="45" cy="45" r="38" fill="none" stroke="#2563eb" stroke-width="8" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="239" transform="rotate(-90 45 45)" style="transition:stroke-dashoffset .6s"/>
+    </svg>
+    <div class="ring-pct" id="ring-pct">0%</div>
+    <div class="ring-lbl">Overall Progress</div>
+  </div>
+  <div class="ready-badge" id="ready-badge">🏆 Interview Ready!</div>
+  <div class="nav-lbl">Navigation</div>
+  <button class="nav-btn active" onclick="navigate('dashboard')" id="nav-dashboard">
+    <span class="ico">🏠</span><span class="ttl">Dashboard</span>
+  </button>
+  <div class="nav-lbl-learn">Learning Hub</div>
+  <button class="nav-btn" onclick="navigate('learnhub')" id="nav-learnhub">
+    <span class="ico">📚</span><span class="ttl">All Topics</span>
+  </button>
+  <div id="nav-learn-topics"></div>
+  <div class="nav-lbl">Interview Modules</div>
+  <div id="nav-modules"></div>
+  <div style="padding:10px 8px;margin-top:auto;border-top:1px solid rgba(255,255,255,.1)">
+    <button class="nav-btn" onclick="navigate('settings')" id="nav-settings">
+      <span class="ico">⚙️</span><span class="ttl">API Settings</span>
+      <span id="api-dot" style="width:8px;height:8px;border-radius:50%;background:#dc2626;flex-shrink:0"></span>
+    </button>
+  </div>
+</nav>
+<div class="main">
+  <div id="view"></div>
+</div>
+</div>
+<script>
+const MODULES=[
+{id:'m1',icon:'📋',title:'Test Management & QA Strategy',desc:'Test strategy, planning, estimation, governance & metrics',
+topics:['Test Strategy vs Test Plan — key differences and when to use each','Risk-based testing: probability × impact prioritisation','Estimation techniques: WBS, Expert Judgment, Analogous, PERT','QA Governance frameworks: TaaS, CoE, Quality Charter','Quality metrics for management: DER, MTTR, Test Coverage, Automation ROI','Defect lifecycle, SLA management and triage process','Entry/exit criteria and quality gates per phase','Release sign-off and Go/No-Go decision frameworks'],
+mcqs:[
+{q:'What is the key difference between a Test Strategy and a Test Plan?',opts:['A Test Strategy is project-specific; a Test Plan is org-wide','A Test Strategy is a high-level org-wide approach document; a Test Plan is project-specific with detailed scope, schedule, and resources','A Test Strategy covers automation; a Test Plan covers manual only','There is no meaningful difference'],ans:1,expl:'Test Strategy: org-wide, methodology and principles. Test Plan: project-specific, contains scope, schedule, roles, entry/exit criteria, and risk — aligned to the strategy.'},
+{q:'Which estimation technique is MOST reliable when you have data from 3 similar past BFSI projects?',opts:['Wide Band Delphi','Function Point Analysis','Analogous Estimation using historical actuals','PERT with 3-point estimates'],ans:2,expl:'Analogous estimation leverages historical actuals from comparable projects — fastest and most reliable when past data exists. With 16 years of project data, this is your strongest input.'},
+{q:'3 days before a BFSI release, you find a critical module has 0% test coverage. Your FIRST action?',opts:['Start testing the module yourself immediately','Escalate to the CTO and request a delay','Conduct rapid risk assessment, map untested scenarios, present stakeholders with 3 options (delay/risk-based/risk acceptance) with trade-offs documented','Release and create a hotfix plan'],ans:2,expl:'Leadership response: diagnose → quantify risk → communicate transparently with options. Never hide a coverage gap, but also never escalate without a solution set ready.'},
+{q:'Which metric is MOST impactful when presenting QA value to C-level stakeholders?',opts:['Total test cases executed','Defect Escape Rate — defects found in production as % of total defects','Number of automation scripts','Daily execution %'],ans:1,expl:'DER directly links QA effectiveness to business risk. A low DER means QA is protecting the business from production failures — a language executives understand.'},
+{q:'In a TaaS engagement, what is the MOST critical governance element?',opts:['Size of the test case repository','Clearly defined SLAs, quality thresholds, and transparent real-time reporting dashboards','Whether the team is onshore or offshore','The automation framework stack'],ans:1,expl:'TaaS accountability rests on measurable, agreed SLAs and visible dashboards. Without these, the client cannot assess value and trust erodes.'},
+{q:'Risk-based testing is BEST applied when:',opts:['All features are equally important','Time and resources are constrained and you need to maximise coverage of high-impact areas','You have unlimited time to test everything','All defects have the same severity'],ans:1,expl:'Risk-based testing prioritises by probability-of-failure × business-impact. Critical for financial transactions, auth flows, and data integrity — exactly the scenarios in ABMF and BFSI projects.'},
+{q:'Standard entry criteria for System Testing includes:',opts:['Development team verbal sign-off only','Unit + integration tests passed, stable environment, test data ready, test cases reviewed, traceability matrix approved','At least 50% of test cases written','Automation framework set up'],ans:1,expl:'Entry criteria ensure testing starts on a stable, prepared baseline. Missing any of these leads to environment churn and wasted test cycles.'},
+{q:'How do you manage QA effort allocation across 5 concurrent projects?',opts:['Distribute equally','Prioritise by revenue impact, risk level, release proximity, and compliance requirements — backed by utilisation data','Give resources to whoever asks loudest','Focus only on the newest project'],ans:1,expl:'Data-driven allocation: business criticality + risk + timeline + regulatory weight. This is standard for a Test Manager running multiple TaaS accounts simultaneously.'}
+],
+mock:[
+{q:'Walk me through how you define a test strategy for a new BFSI project.',cat:'Strategy',ans:'I start with business and regulatory context — RBI guidelines, PCI-DSS, data localisation for BFSI. I analyse system architecture to identify test layers: functional, integration, performance, security, regression. I set automation candidacy criteria — targeting 70-80% regression coverage with Playwright. Risk-based prioritisation is defined upfront: financial transactions, auth, and encryption get the highest focus. I establish a metrics framework (DER, coverage %, automation ROI) and a governance model with weekly stakeholder dashboards and fortnightly steering reviews. For ABMF specifically, we structured testing around investor journeys — purchase, redemption, portfolio view — with VAPT on all data endpoints.'},
+{q:'How do you estimate QA effort for a complex enterprise project you have not worked on before?',cat:'Estimation',ans:'I use a multi-technique approach. First, WBS-based requirements decomposition: for each feature, I estimate test design, execution cycles, defect retest, and automation development. I apply complexity buffers — new domain or tech stack adds 20-30%. I cross-check with analogous estimates from similar past projects. For automation, initial build costs 3-5x manual execution time but pays back after 3-5 runs — I factor in long-term ROI. I identify team ramp-up time for new domains. I present estimates with confidence levels and explicit assumptions — so stakeholders understand what the buffer is for.'},
+{q:'How do you ensure quality in a continuous delivery environment where releases happen weekly?',cat:'CI/CD Quality',ans:'I embed quality gates at every pipeline stage: PR-level static analysis and unit tests, commit-level smoke tests (Playwright, ~5 min), nightly full regression with parallel execution. I define mandatory quality thresholds — no merge if critical test fails, DER above threshold blocks release. I create a shift-left practice where QA reviews requirements and design before dev starts. For weekly releases, I rely on automation coverage — 80% regression via Playwright means human effort focuses only on exploratory and new feature testing. Release decision is data-driven via a live dashboard, not gut feel.'}
+],
+scenarios:[{
+title:'Crisis: Zero Coverage on Critical Module 3 Days Before BFSI Go-Live',
+setup:'You\'ve reviewed a mutual fund investor portal going live in 3 days. The KYC onboarding module — which handles identity verification and account creation — has 0% automation coverage and only 30% manual execution completed. The PM insists on going live as contractually scheduled.',
+criteria:['Conduct immediate risk mapping of the impacted module — which journeys, what data?','Quantify the risk: what is the worst-case production impact?','Present 3 options to stakeholders with trade-offs — never just one recommendation','Propose risk-based testing plan for the 3 days if proceeding','Establish enhanced production monitoring and rollback plan','Get written risk acceptance if release proceeds with known gaps','Root cause the coverage gap and define a process fix'],
+ideal:'Risk map → Stakeholder briefing with options: (1) 3-day delay for full coverage, (2) Risk-based 48hr intensive on critical paths — KYC submit, verification callback, account creation success/fail, (3) Release with written risk acceptance + monitoring. Recommend option 2. Execute intensive testing. Set up war room for go-live 72hrs. Post-release RCA on how the gap occurred.'
+}],
+codeChallenge:null},
+
+{id:'m2',icon:'👥',title:'Team Leadership & Delivery',desc:'Managing 50+ QA engineers, offshore coordination, stakeholder influence',
+topics:['Distributed team management: onshore-offshore-nearshore models','Capacity planning and resource allocation across concurrent projects','Performance management, mentoring and career development','Conflict resolution: QA vs Dev, QA vs PM, within team','Building automation skills in manual-testing-heavy teams','Delivery governance: multi-project status, escalation paths','Influencing without authority: convincing Dev, PM, and C-suite','Managing change when introducing new tools or processes'],
+mcqs:[
+{q:'You manage 50+ QA engineers across 3 time zones. What is the MOST effective alignment strategy?',opts:['Daily meeting at your local time','Overlap hours for live collaboration, async-first norms, shared dashboards, rotating meeting times to distribute inconvenience fairly','Require offshore to work onshore hours','Communicate only via email'],ans:1,expl:'Distributed team success: defined overlap windows, async-first with clear SLAs, real-time dashboards (Azure DevOps/JIRA), and rotating inconvenient slots so no one location bears all the burden.'},
+{q:'A senior QA engineer with domain expertise is consistently missing deadlines and seems disengaged. First step?',opts:['Issue a formal warning','Private 1:1 to understand root cause — burnout, personal issue, skill mismatch, or lack of challenge','Reassign all their tasks','Report to HR immediately'],ans:1,expl:'Performance issues in experienced engineers are usually symptoms: burnout, feeling undervalued, or role misalignment. Diagnose before prescribing. The conversation is private, empathetic, and solution-oriented.'},
+{q:'You need to transition QA ownership from a client team to your offshore team. Best approach?',opts:['Ask for documents and start testing immediately','Structured KT: shadowing → reverse shadowing → parallel execution → full handover with success milestones','Start fresh with your own processes','Take automation ownership only'],ans:1,expl:'Phased transition builds client trust: shadow (learn), reverse shadow (execute while observed), parallel run (validate parity), then full handover. Each phase has sign-off criteria.'},
+{q:'How do you build automation skills in a team that is 90% manual testers?',opts:['Hire all new automation engineers and exit manual testers','Identify willing learners, create structured upskilling with paired automation work, dedicated practice time, and celebrate early wins','Buy a codeless tool and expect the team to figure it out','Outsource all automation'],ans:1,expl:'Skill transformation: find motivated learners (not force everyone), pair with automation engineers, protect practice time from project pressure, celebrate first scripts publicly. Retains domain knowledge while building technical depth.'},
+{q:'A dev lead repeatedly disputes your team\'s critical severity ratings. How do you resolve this structurally?',opts:['Escalate to CTO every time','Agree with the dev lead to maintain peace','Establish a shared severity matrix agreed upfront by QA, Dev, and PM leads — unresolved cases escalate to a neutral stakeholder','Stop raising critical defects'],ans:2,expl:'Remove personality from severity discussions by creating objective criteria both sides agreed to. Escalation path to a neutral party (PM or Product Owner) handles edge cases without the conversation becoming personal.'},
+{q:'Your team is at 100% capacity and a new urgent project arrives. What do you do?',opts:['Accept and overload the team','Decline the project','Analyse utilisation data, identify efficiency gains from automation on existing projects, explore contractor options, and present leadership with data-backed options and timeline trade-offs','Ask the team to work weekends'],ans:2,expl:'Never accept an impossible commitment. Show data: current utilisation, what releasing capacity would require, contractor cost vs timeline trade-off. Let leadership make the call with full information.'},
+{q:'Demonstrating QA as a value driver (not cost centre) to business stakeholders requires:',opts:['Writing more test cases','Quantifying cost of defects prevented vs cost of QA investment, showing automation ROI, and linking DER to customer experience metrics','Working longer hours','Reducing team size to cut costs'],ans:1,expl:'Business language: cost of quality (prevention vs failure), automation ROI (hours saved × loaded cost), production incident reduction. When QA is framed as risk management, it becomes a strategic investment.'},
+{q:'What does an effective mid-year performance review for a QA engineer look like?',opts:['Review test cases and bug count only','Against pre-agreed SMART goals covering technical depth, quality impact metrics, collaboration, and professional development — with 360 feedback and forward-looking development plan','Only give feedback if there are problems','Base it entirely on manager observation'],ans:1,expl:'Effective reviews: SMART goals set at start of period, evidence-based with specific examples, multi-dimensional (technical, impact, collaboration, growth), two-way dialogue, and clear development plan for next period.'}
+],
+mock:[
+{q:'Tell me about managing a QA team of 50+ people. What were your biggest challenges?',cat:'Leadership',ans:'At Impiger I managed 50+ QA engineers across onshore/offshore locations for 15+ concurrent projects. Key challenges: (1) Consistency — different leads had different quality bars. Fixed with a QA Centre of Excellence: shared templates, peer review process, and monthly calibration sessions. (2) Visibility at scale — I could not be everywhere. Implemented Azure DevOps dashboards per project with RAG status and a weekly lead review cadence. (3) Career stagnation — junior testers felt stuck. Created skill tracks: Manual → Automation → Performance/Security, with training support and ISTQB certification budget. (4) Cross-timezone communication — established async standups, bi-weekly live syncs with rotating times, and a clear escalation path. Key insight: at this scale, your processes and systems do the management — not you personally.'},
+{q:'Describe a situation where you influenced a major decision without formal authority.',cat:'Influence',ans:'The Playwright migration at PwC. Dev team and PM were resistant — they saw risk and rework. I had no authority to mandate it. My approach: (1) Built a POC: migrated 20 legacy scripts, showed 60% execution speed improvement and 0% vs 40% flakiness. (2) Quantified ROI: projected 200+ hours saved per quarter in reduced debugging and reruns. (3) Framed it in business terms for the Project Director — faster feedback cycles, lower maintenance cost, better CI integration. (4) Proposed phased approach — new tests in Playwright first, no forced migration of working scripts. Director approved. Lesson: influence without authority requires data, business framing, the right sponsor, and a low-risk entry point.'},
+{q:'How do you handle ongoing conflict between your QA team and the development team?',cat:'Conflict',ans:'I address conflict at the structural level, not the personality level. Steps I have used: (1) Well-documented defects with reproduction steps, env details, expected vs actual — removes ambiguity. (2) Pre-agreed severity matrix so classification is against criteria, not opinion. (3) Fortnightly cross-team defect review sessions where QA and Dev review defects together — this builds mutual respect and surfaced root causes quickly. (4) Retrospectives that include both teams — "how do we find bugs earlier together?" reframes QA from gate-keeper to partner. At one BFSI engagement, these changes reduced defect disputes by 70% within 2 sprints.'}
+],
+scenarios:[{
+title:'Delivery Crisis: 3 Key Engineers Off Sick Before Critical Release',
+setup:'Your team of 12 QA engineers must complete regression testing for a major BFSI release in 2 days. This morning, 3 of your most experienced automation engineers call in sick. Your Playwright suite covers 70% of test cases. The release cannot be delayed per contractual SLA.',
+criteria:['Immediately triage impact: which areas do the 3 engineers own?','Run automated suite first — 70% coverage requires minimal headcount','Risk-based prioritisation of remaining 30% manual areas','Transparently brief PM with impact statement and what will/will not be tested','Consider pulling a senior lead from a non-critical project','Get written risk acceptance for any untested areas','Strengthen production monitoring as mitigation'],
+ideal:'Run full Playwright automated suite immediately — this is mostly unattended. For remaining manual 30%, apply risk-based order: financial transactions first, then auth, then data integrity, then UI. Senior test lead takes highest-risk manual scenarios. Brief PM with clear gap statement. Document untested areas. Get risk acceptance sign-off. Plan hotfix readiness for go-live.'
+}],
+codeChallenge:null},
+
+{id:'m3',icon:'🎭',title:'Playwright Automation (Python)',desc:'POM design, fixtures, API testing, CI/CD integration & advanced patterns',
+topics:['Playwright vs legacy frameworks — architecture advantages','Page Object Model (POM) with Playwright Python','conftest.py patterns — fixtures, scoping, session auth','Auto-wait and expect() assertions vs standard assert','Network interception and API mocking with page.route()','Visual regression testing with playwright snapshots','API testing via page.request context','Mobile/device emulation for responsive testing','Parallel execution with pytest-xdist','CI/CD integration: Azure DevOps, Jenkins pipelines','Playwright MCP and AI-assisted test generation','Handling iframes, shadow DOM, dynamic content'],
+mcqs:[
+{q:'What is Playwright\'s primary architectural advantage over legacy browser automation frameworks?',opts:['Playwright is easier to install','Playwright communicates via CDP/WebSocket natively, providing auto-wait, built-in network interception, cross-browser support from one API, and first-class support for modern JS app patterns','Playwright supports only Chromium','Playwright does not need a browser driver'],ans:1,expl:'Playwright uses the Chrome DevTools Protocol (CDP) and browser-native WebSocket connections — giving it direct control without driver intermediaries. This enables auto-waiting (no explicit waits needed), native network mocking, and much faster execution than WebDriver-based tools.'},
+{q:'In pytest-playwright, what does the `page` fixture provide and what is its default scope?',opts:['A URL loader, session-scoped','A pre-configured browser page (tab) for each test, automatically cleaned up after — function-scoped by default','A shared page across all tests in a module','A file reader for test data'],ans:1,expl:'The `page` fixture creates browser → context → page for each test function and tears down after. Function scope (default) gives test isolation. Use `context` fixture when you need to share state across tests in a class.'},
+{q:'How do you interact with elements inside an iframe in Playwright?',opts:['Use driver.switch_to.frame() like older frameworks','Use page.frame_locator("iframe#myFrame").locator("button#submit").click()','Playwright cannot interact with iframes','Execute JavaScript to extract iframe content'],ans:1,expl:'Playwright\'s frame_locator() returns a frame context you chain regular locators onto: `page.frame_locator("#payment-frame").get_by_role("button", name="Pay").click()`. Cleaner than switch-based patterns and handles nested frames naturally.'},
+{q:'What is the BEST locator strategy priority order in Playwright?',opts:['XPath always, it is the most powerful','data-testid first, then role/label-based (get_by_role, get_by_label), then text, then CSS — avoid structure-coupled selectors','CSS class names first','Full XPath from root element'],ans:1,expl:'Playwright testing guide priority: (1) data-testid — stable across UI refactors, (2) Accessibility role/label — semantically correct, (3) Text — readable, (4) CSS — use last resort. `page.get_by_role("button", name="Submit")` is preferred over `.btn-submit` CSS.'},
+{q:'How do you mock an API response to return a 500 error for error-state UI testing?',opts:['You cannot mock API responses in Playwright','Set up a separate WireMock server','Use page.route("**/api/portfolio**", lambda route: route.fulfill(status=500, json={"error":"Server Error"})) BEFORE navigation','Use page.wait_for_response() and modify it'],ans:2,expl:'page.route() intercepts matching requests. route.fulfill() returns mock data. CRITICAL: the route must be registered BEFORE the navigation that triggers the API call. Use route.abort() to simulate network failure, route.continue_() to pass through with modifications.'},
+{q:'What is the key advantage of Playwright\'s expect() assertions over Python\'s standard assert?',opts:['expect() is faster to type','expect() automatically retries the assertion until it passes or the timeout expires — making tests resilient to async UI updates','Standard assert is deprecated in Python','expect() only works with Playwright locators'],ans:1,expl:'`expect(locator).to_be_visible()` retries for up to 5 seconds (configurable). `assert element.is_visible()` checks once and fails if the UI has not updated yet. This single change eliminates most flakiness from async rendering.'},
+{q:'How do you persist authentication state across tests to avoid logging in before every test?',opts:['Store credentials in test code and log in each time','Use context.storage_state(path="auth.json") after a session login, then load it via browser.new_context(storage_state="auth.json") for subsequent tests','There is no way to share auth state in Playwright','Use cookies directly in each test'],ans:1,expl:'storage_state() serialises cookies and localStorage. One login per test run, state reused across all tests. Major performance win — a 200-test suite that logs in each time vs once is dramatically faster.'},
+{q:'How do you run Playwright tests in parallel in Azure DevOps CI?',opts:['Playwright does not support parallel execution','Run pytest with -n auto (pytest-xdist) and ensure tests are isolated with function-scoped page fixtures, or use Azure DevOps parallel jobs with test sharding','Create separate VMs for each test','Use Python threading inside test code'],ans:1,expl:'pytest -n 4 distributes tests across 4 workers. Test isolation is critical: each test must use its own page/context (function-scoped). In Azure DevOps, combine pytest-xdist with --dist=loadbalance for optimal CI utilisation. Use --tracing=retain-on-failure for debugging CI failures.'},
+{q:'You need to test the portfolio page on an iPhone 14 form factor. How do you configure this?',opts:['Playwright cannot test mobile viewports','Use browser.new_context(**playwright.devices["iPhone 14"]) to emulate viewport, user agent, touch, and device scale factor','Manually set window size with page.set_viewport_size()','Use a separate Appium setup for this'],ans:1,expl:'playwright.devices["iPhone 14"] is a descriptor with viewport, user agent, device pixel ratio, touch, and mobile flag pre-configured. Accurate responsive testing without physical devices for web apps. For native iOS apps, you would still need Appium.'}
+],
+mock:[
+{q:'Walk me through the Playwright framework architecture you built for the ABMF project.',cat:'Framework Design',ans:'The ABMF framework had clear layers. (1) Page Objects: one class per page — Login, Dashboard, InvestorPortfolio, Transactions. Locators as instance attributes using get_by_role and get_by_label for accessibility alignment. Actions as methods returning self for chaining. (2) Fixtures in conftest.py: session-scoped browser, session-scoped authenticated context using storage_state, function-scoped auth_page for test isolation. (3) Configuration: environment variables for base_url, credentials, and API keys — never hardcoded. pytest.ini for global timeout and base_url. (4) Test data: factory pattern — create via API before test, delete after via yield fixture. (5) Reporting: Allure with auto-captured screenshots and traces on failure. (6) CI: Azure DevOps pipeline — smoke suite on every PR, full regression nightly with parallel workers. Result: 80% automation coverage, 50% regression time reduction.'},
+{q:'How have you integrated Playwright MCP and AI tools into your testing workflow?',cat:'AI-Assisted Testing',ans:'I use Playwright MCP as an agent that receives natural language user journey descriptions and executes them against the live app, generating base test code. The AI gets 70-80% of the way — I then refine for stability, reusability, and edge cases. With Claude Code, I provide the page HTML structure and ask for the POM class — it is strong at fixture patterns and parametrised tests. GitHub Copilot fills in repetitive assertion patterns in VS Code. The discipline I enforce: AI generates, human validates — every AI-generated test must demonstrably fail when the feature is broken before I trust it. This approach reduced script development time by ~40% on the PwC CLM project. The risk to call out: AI-generated tests can be over-confident — they pass even when the app has subtle bugs if the assertions are not precise enough.'},
+{q:'How do you approach migrating a flaky Selenium framework to Playwright?',cat:'Migration',ans:'I never recommend a big-bang rewrite. My phased approach used at PwC: Phase 1 — root cause analysis of flakiness, categorising into: timing issues (fix with Playwright auto-wait), fragile locators (fix with role-based selectors), test data dependency (fix with API-based setup), environment instability (fix with better isolation). Phase 2 — write all new tests in Playwright immediately, no new Selenium scripts. Phase 3 — migrate highest-ROI flaky Selenium tests first: those that fail most often in CI and block releases. Measure weekly: flakiness rate, execution time, coverage. Phase 4 — retire stable Selenium tests only after Playwright equivalents pass 10 consecutive CI runs. Set a target: below 2% flakiness rate in the new framework before declaring migration complete.'}
+],
+scenarios:[{
+title:'CI Pipeline Test Execution Time Has Grown to 3 Hours — Blocking Dev Feedback',
+setup:'Your Playwright regression suite has grown to 600 tests and now takes 3 hours to run in CI. Developers are bypassing the pipeline and pushing directly to staging. You have Azure DevOps with 4 available agents.',
+criteria:['Analyse which tests are slowest and why — data before action','Introduce parallel execution with pytest-xdist across 4 agents','Implement test sharding strategy — smoke/regression split','Identify and fix tests with unnecessary waits or sequential dependencies','Consider test categorisation: @smoke, @regression, @slow tags','Set a target: PR checks under 10 min, full regression under 30 min','Address the root cause of why devs are bypassing — process and trust issue'],
+ideal:'Profile with pytest --durations=20 to find slowest tests. Enable -n 4 parallel execution immediately (80% time reduction potential). Split into: PR-triggered smoke (fast, ~8 min), nightly full regression. Tag tests with markers. Fix the 20% of tests causing 80% of time — likely sequential tests, missing API setup causing UI setup, or non-isolated tests. Rebuild dev trust by showing the new fast feedback loop.'
+}],
+codeChallenge:[
+{title:'POM Class for Login Page',desc:'Write a Playwright Python POM class for a login page with username, password, submit button, and error message. Include locators, login() method, and assertion helpers.',
+hints:['Use get_by_label() or get_by_role() — not CSS class selectors','Accept page: Page in __init__','Return self from action methods for chaining','Use Playwright expect() for assertions — not standard assert'],
+solution:`# pages/login_page.py
+from playwright.sync_api import Page, expect
+
+class LoginPage:
+    def __init__(self, page: Page):
+        self.page = page
+        self.username  = page.get_by_label("Username")
+        self.password  = page.get_by_label("Password")
+        self.submit    = page.get_by_role("button", name="Sign In")
+        self.error_msg = page.get_by_role("alert")
+
+    def navigate(self, base_url: str):
+        self.page.goto(f"{base_url}/login")
+        return self
+
+    def login(self, username: str, password: str):
+        self.username.fill(username)
+        self.password.fill(password)
+        self.submit.click()
+        return self
+
+    def expect_error(self, text: str):
+        expect(self.error_msg).to_be_visible()
+        expect(self.error_msg).to_contain_text(text)
+
+    def expect_login_success(self):
+        expect(self.page).not_to_have_url("**/login")
+
+# tests/test_login.py
+def test_valid_login(page, base_url):
+    LoginPage(page).navigate(base_url).login("user@test.com","Pass123")
+                   .expect_login_success()
+
+def test_wrong_password(page, base_url):
+    LoginPage(page).navigate(base_url).login("user@test.com","wrong")
+                   .expect_error("Invalid credentials")`,
+expl:'Key patterns: (1) Role/label locators — stable across UI refactors. (2) Method chaining with return self — readable test code. (3) expect() for auto-retrying assertions. (4) Assertion helpers in the POM — tests read like requirements.'},
+{title:'API Mocking for Error State Testing',desc:'Write a Playwright test that intercepts /api/portfolio, returns a 500 error, and verifies the UI shows a user-friendly error with a retry button.',
+hints:['page.route() must be called BEFORE the navigation that triggers the API call','Use route.fulfill() to return mock status and body','route.abort() simulates a network failure (different from 500)','Test both the error message text AND the retry button presence'],
+solution:`def test_portfolio_shows_error_on_api_failure(page, base_url):
+    # MUST be registered before navigation
+    page.route(
+        "**/api/portfolio**",
+        lambda route: route.fulfill(
+            status=500,
+            content_type="application/json",
+            body='{"error":"PORTFOLIO_LOAD_FAILED"}'
+        )
+    )
+    page.goto(f"{base_url}/portfolio")
+
+    error = page.get_by_role("alert")
+    expect(error).to_be_visible()
+    expect(error).to_contain_text("Unable to load portfolio")
+    expect(page.get_by_role("button", name="Try Again")).to_be_visible()
+
+def test_portfolio_empty_state(page, base_url):
+    page.route("**/api/portfolio**", lambda route: route.fulfill(
+        status=200,
+        content_type="application/json",
+        body='{"holdings":[],"totalValue":0}'
+    ))
+    page.goto(f"{base_url}/portfolio")
+    expect(page.get_by_text("No investments found")).to_be_visible()`,
+expl:'route.fulfill() returns your mock. route.abort() simulates network failure. route.continue_() passes through with optional modifications. Wildcard ** matches any path prefix. This eliminates separate mock servers for edge case testing.'}
+]}
+];
+const MODULES2=[
+{id:'m4',icon:'⚡',title:'Performance & Security Testing',desc:'JMeter, K6, OWASP ZAP, Burp Suite — strategy to execution',
+topics:['Performance test types: load, stress, soak, spike, endurance','JMeter test plan structure: thread groups, samplers, listeners','K6 scripting: virtual users, scenarios, thresholds','Performance metrics: response time (p95/p99), throughput, error rate','Bottleneck identification: backend vs DB vs network','OWASP Top 10 (2021) — key vulnerabilities to know cold','Burp Suite: Proxy, Scanner, Intruder, Repeater usage','OWASP ZAP for automated security scanning','VAPT report writing and remediation guidance','Security testing for APIs: auth bypass, injection, IDOR'],
+mcqs:[
+{q:'What is the difference between Load Testing and Stress Testing?',opts:['They are the same','Load testing validates performance under expected peak load; stress testing pushes beyond limits to find breaking points and failure modes','Load testing is for APIs; stress testing is for UI','Stress testing is done before load testing always'],ans:1,expl:'Load test: validate system meets SLAs at expected concurrency (e.g. 5000 concurrent users for ABMF market hours). Stress test: find the breaking point — when does it degrade and how does it recover? Both are necessary for BFSI platforms.'},
+{q:'Which K6 metric should you set as a threshold for a financial transaction API?',opts:['Average response time only','p95 response time (95th percentile) < 2000ms AND error rate < 0.5% — protecting the majority of users while catching tail latency','Maximum response time','Requests per second only'],ans:1,expl:'p95/p99 are better than average — averages hide tail latency that affects real users. For financial transactions, a strict error rate threshold is non-negotiable. Setting both response time AND error thresholds is production-grade practice.'},
+{q:'During a load test for a mutual fund portal (target: 10,000 concurrent users), response times degrade at 3,000 users. What is your FIRST diagnostic step?',opts:['Immediately increase server capacity','Analyse which specific transaction types are degrading — database query times, application server CPU, or network bandwidth','Reduce the user count in the test','Declare the test a failure and stop'],ans:1,expl:'Bottleneck localisation: use JMeter listeners or K6 output to identify which endpoints degrade. Cross-reference with APM data (application CPU, DB slow query logs, connection pool exhaustion). Fix the root cause, not the symptom.'},
+{q:'Which OWASP Top 10 (2021) vulnerability is MOST critical for a BFSI investor portal?',opts:['A5: Security Misconfiguration','A1: Broken Access Control — allowing an investor to view or modify another investor\'s portfolio','A9: Security Logging Failures','A10: Server-Side Request Forgery'],ans:1,expl:'Broken Access Control (A1 in OWASP 2021) is the #1 risk. For BFSI: an investor accessing another\'s portfolio (IDOR), a distributor accessing admin functions, or privilege escalation. This has direct financial and regulatory consequences.'},
+{q:'How do you test for SQL Injection in a login form using Burp Suite?',opts:['Test only with valid credentials','Intercept the login request in Burp Proxy, send to Repeater, inject payloads like \' OR 1=1-- in username/password fields, observe responses for errors or auth bypass','Use OWASP ZAP Scanner only','You cannot test SQL injection on login forms'],ans:1,expl:'Burp Repeater: capture login POST, inject SQL payloads, observe: (1) Database error messages (vulnerability confirmed + information leak), (2) Successful auth bypass (critical), (3) Time delays with SLEEP() payloads (blind SQLi). Also test API endpoints — not just UI forms.'},
+{q:'What should a VAPT report include for a financial platform client?',opts:['Just a list of vulnerabilities found','Executive summary with business risk, detailed findings with severity (CVSS score), proof of concept/evidence, affected endpoints, and prioritised remediation steps','Only critical vulnerabilities','A generic security checklist'],ans:1,expl:'A VAPT report has two audiences: (1) Executive — business risk, impact, compliance implication. (2) Technical — reproduction steps, affected code/endpoint, CVSS score, and specific remediation. Prioritise by exploitability × impact. Include retest plan.'},
+{q:'In K6, how do you simulate a realistic ramp-up of users for a load test?',opts:['Set all virtual users from start','Use stages in options: [{duration:"2m",target:100},{duration:"5m",target:1000},{duration:"3m",target:1000},{duration:"2m",target:0}] to gradually ramp up, sustain, and ramp down','K6 does not support gradual ramp-up','Use a single thread group setting'],ans:1,expl:'Staged ramp-up mimics real traffic patterns. Ramping up slowly lets you observe the inflection point where performance degrades. Sustain phase validates steady-state behaviour. Ramp-down validates graceful recovery. Sudden full-load tests are useful for stress testing only.'},
+{q:'What is the difference between OWASP ZAP and Burp Suite in a QA security testing workflow?',opts:['They are identical tools','OWASP ZAP is open-source and well-suited for automated scanning in CI/CD pipelines; Burp Suite Professional is better for manual exploratory security testing, with advanced tools like Intruder and active scanner','Burp Suite is free; ZAP is paid','ZAP tests only APIs; Burp tests only web apps'],ans:1,expl:'ZAP integrates into CI/CD via CLI/API — automated baseline scans on every build catch regressions. Burp Pro is used by security specialists for deep manual testing — Intruder for fuzzing, Scanner for active crawling, Repeater for manual payload crafting. Use both: automated baseline + manual deep dive.'}
+],
+mock:[
+{q:'Walk me through your approach to performance testing the ABMF mutual fund portal for a market-open event expecting 10x normal traffic.',cat:'Performance Strategy',ans:'I start with understanding the SLAs — what response times and error rates are acceptable during market hours. For ABMF, financial transactions had a 2-second p95 SLA and 0% error tolerance. I then profiled baseline performance under normal load, identified the critical user journeys (portfolio view, buy/sell order, NAV refresh), and designed a test plan with: (1) Baseline at expected normal load, (2) Load test at projected market-open peak, (3) Stress test to find the breaking point, (4) Soak test at peak for 2 hours to catch memory leaks. I used JMeter for test execution with BlazeMeter for cloud scale. Key finding: at 3x normal load, the portfolio aggregation DB query hit a bottleneck. We added a caching layer and the portal sustained 10x load within SLA. I also set up JMeter MCP Server to run load tests in the CI pipeline for regression performance checks.'},
+{q:'Describe your VAPT process for the PwC CLM platform — what did you look for and how did you report it?',cat:'Security Testing',ans:'For a contract lifecycle platform handling sensitive legal data, I followed OWASP Top 10 as my framework. I started with reconnaissance: mapping all API endpoints using Swagger docs and Burp\'s spider, then checked authentication flows for JWT weaknesses — algorithm confusion, token expiry bypass. I tested for IDOR by manipulating contract IDs in API requests — checking if user A could access user B\'s contracts. I ran OWASP ZAP automated baseline scan for quick wins: missing security headers, verbose error messages, insecure CORS. Then deep manual testing with Burp on the contract upload and approval workflows — checking for stored XSS, file upload bypass, and privilege escalation. The report had an executive section with a risk heat map, and a technical section with CVSS-scored findings, PoC evidence, affected endpoints, and prioritised remediation steps. All critical findings were retested after fixes were deployed.'}
+],
+scenarios:[{
+title:'BFSI Portal Under Attack: Production SQLi Vulnerability Reported',
+setup:'Two weeks after your ABMF go-live, the security team reports a potential SQL injection vulnerability in the investor search endpoint. A penetration tester found that the endpoint reflects database error messages when certain characters are submitted. You are responsible for QA.',
+criteria:['Immediate triage: is this exploitable? What data is at risk?','Reproduce the finding in a safe environment (not production)','Assess scope: are other endpoints affected?','Coordinate with dev on immediate mitigation — WAF rule or parameter sanitisation','Verify the fix before re-enabling the endpoint','Conduct a targeted security review of all input handling endpoints','Include a process question: how did this pass VAPT?'],
+ideal:'Reproduce in staging using Burp Repeater with the exact payload. Confirm exploitability level (error-based vs blind vs full data extraction). Coordinate with dev: (1) Immediate: WAF rule to block the payload pattern, (2) Fix: parameterised queries or ORM enforcement, (3) Test: verify fix eliminates the error message AND that legitimate searches still work. Scope scan with ZAP across all search/filter endpoints. RCA: was this endpoint in scope during VAPT? If missed, update the test charter. Report formally with timeline, impact assessment, and fix verification.'
+}],
+codeChallenge:[{
+title:'K6 Load Test Script for a Fund Purchase API',
+desc:'Write a K6 script to load test a mutual fund purchase API endpoint. Include: realistic ramp-up stages, authentication header, success/failure checks, and p95 threshold.',
+hints:['Import http and check from k6','Define stages in export const options','Use check() to validate response status and response body','Set thresholds for http_req_duration (p95) and http_req_failed rate'],
+solution:`import http from 'k6/http';
+import { check, sleep } from 'k6';
+
+export const options = {
+  stages: [
+    { duration: '2m', target: 100 },   // ramp up
+    { duration: '5m', target: 1000 },  // sustained peak
+    { duration: '2m', target: 2000 },  // stress beyond peak
+    { duration: '2m', target: 0 },     // ramp down
+  ],
+  thresholds: {
+    http_req_duration: ['p(95)<2000'],  // 95% under 2s
+    http_req_failed:   ['rate<0.005'],  // <0.5% errors
+  },
+};
+
+const BASE_URL = __ENV.BASE_URL || 'https://staging.abmf.com';
+const TOKEN    = __ENV.API_TOKEN;
+
+export default function () {
+  const payload = JSON.stringify({
+    schemeCode: 'INF200K01RD8',
+    amount: 5000,
+    investorId: \`INV_\${Math.floor(Math.random() * 1000)}\`,
+    transactionType: 'PURCHASE',
+  });
+
+  const params = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': \`Bearer \${TOKEN}\`,
+    },
+  };
+
+  const res = http.post(\`\${BASE_URL}/api/transactions/purchase\`, payload, params);
+
+  check(res, {
+    'status is 201':          (r) => r.status === 201,
+    'transaction id present': (r) => r.json('transactionId') !== undefined,
+    'response time < 2s':     (r) => r.timings.duration < 2000,
+  });
+
+  sleep(1); // think time between requests
+}`,
+expl:'Key patterns: (1) Staged ramp-up — observe degradation inflection point. (2) Thresholds fail the test automatically if SLAs are breached — CI/CD integration. (3) check() records pass/fail per assertion for detailed reporting. (4) Random investorId simulates realistic distribution, not hammering one account. (5) sleep(1) models realistic user think time.'}
+]},
+
+{id:'m5',icon:'🔗',title:'API Testing (Postman & Karate DSL)',desc:'API test strategy, Postman collections, Karate framework, contract testing',
+topics:['REST API concepts: methods, status codes, auth patterns (OAuth2, JWT, API key)','Postman: collections, environments, pre-request scripts, test scripts','Newman: running Postman collections in CI/CD','Karate DSL: feature file syntax, scenarios, schema validation','API contract testing: what it is and why it matters','GraphQL API testing considerations','API security testing: auth bypass, IDOR, rate limiting','Test data management for API tests','Mocking dependencies with Postman Mock Servers','API performance baselines with Karate Gatling'],
+mcqs:[
+{q:'What is the purpose of a Postman pre-request script?',opts:['To delete test data after the test','To execute JavaScript before the request is sent — typically for generating dynamic values, setting variables, or refreshing auth tokens','To validate the response body','To set environment variables permanently'],ans:1,expl:'Pre-request scripts run before the request. Common uses: (1) Generate timestamp or UUID for request body, (2) Refresh OAuth token if expired, (3) Compute HMAC signature for signed APIs, (4) Set up dependent data. This keeps collections dynamic and self-sufficient.'},
+{q:'In a Postman test script, how do you validate that a JSON response contains a specific field?',opts:['pm.response.text().includes("fieldName")','pm.test("field exists", () => { pm.expect(pm.response.json()).to.have.property("transactionId"); })','console.log(pm.response.json())','pm.response.json().fieldName !== null'],ans:1,expl:'pm.test() wraps assertions with a name (shown in results). pm.expect() uses Chai-style assertions — .to.have.property(), .to.equal(), .to.be.an("array"), .to.have.lengthOf(). Always name your tests — unnamed assertions are invisible in Newman reports.'},
+{q:'How do you chain Postman requests so Request B uses a value from Request A\'s response?',opts:['You cannot chain requests in Postman','In Request A\'s test script: pm.environment.set("tokenId", pm.response.json().id). Then use {{tokenId}} in Request B\'s URL or body','Copy-paste the value manually between requests','Use a separate scripting tool outside Postman'],ans:1,expl:'Environment/collection variables bridge requests. Pattern: (1) Request A runs and extracts a value into a variable. (2) Request B references {{variableName}} in URL, headers, or body. This is how you test flows like: login → get token → use token to purchase → verify transaction.'},
+{q:'What is API contract testing and why does it matter in a microservices architecture?',opts:['Testing that the API documentation is formatted correctly','Verifying that the API consumer and provider agree on the exact request/response schema — preventing breaking changes from one service from silently breaking another','Testing API performance under load','Testing API security headers only'],ans:1,expl:'Contract testing (e.g. Pact framework) catches integration failures early — before services are deployed together. The consumer defines what it expects, the provider verifies it delivers that. Critical in microservices where teams deploy independently and a changed response schema can break downstream consumers silently.'},
+{q:'In Karate DSL, how do you validate that an API response matches a JSON schema?',opts:['Karate cannot validate JSON schemas','Use match response == {id: #number, name: #string, status: #? _ == "ACTIVE" || _ == "PENDING"} inline in the feature file','Write a separate Java validator class','Use an external JSON schema library'],ans:1,expl:'Karate\'s `match` keyword with type markers (#string, #number, #array, #present) provides inline schema validation without external libraries. `#? expression` allows custom predicates. This makes API schema validation readable and maintainable alongside the test scenario.'},
+{q:'When running Postman collections in CI/CD, what tool do you use and what is the key configuration?',opts:['Postman desktop app only','Newman CLI: newman run collection.json -e environment.json --reporters cli,junit --reporter-junit-export results.xml — the JUnit reporter enables Azure DevOps/Jenkins to parse results','Postman cloud sync only','A custom bash script calling the Postman API'],ans:1,expl:'Newman is Postman\'s CLI runner. Key flags: -e for environment file, --reporters for output format, --reporter-junit-export for CI integration. JUnit format is universally parsed by Azure DevOps, Jenkins, and GitHub Actions. Run newman in a pipeline step after deploy to staging.'},
+{q:'How do you test for Insecure Direct Object Reference (IDOR) vulnerabilities in an API?',opts:['Only test with your own account credentials','Authenticate as User A, capture a resource ID (e.g. investorId=1234), then make the same API call authenticated as User B with User A\'s ID — if successful, IDOR is confirmed','Run the standard automated scanner only','Test only GET endpoints, not POST'],ans:1,expl:'IDOR testing requires two test accounts. Log in as User B, attempt to access/modify User A\'s resources by substituting IDs. Test across all CRUD operations — read IDOR is bad, write IDOR is critical. For financial platforms, IDOR on transactions or portfolio data is a regulatory compliance failure.'},
+{q:'What is the advantage of Karate DSL over Postman for large-scale API test automation?',opts:['Karate has a better UI','Karate integrates natively with Java/Maven ecosystems, runs in CI without additional CLI tools, supports data-driven testing with external files, and can combine API testing with performance testing via Karate Gatling','Postman has no scripting capability','Karate is faster to set up initially'],ans:1,expl:'Karate DSL advantages at scale: (1) Native Maven/Gradle integration — runs as part of the build, (2) Feature file syntax is readable without coding, (3) Built-in schema validation and fuzzy matching, (4) Karate Gatling for performance testing with the same scenarios, (5) Parallel execution out of the box. Best for projects that need programmatic flexibility beyond Postman collections.'}
+],
+mock:[
+{q:'How did you structure API testing for the ABMF investor portal?',cat:'API Strategy',ans:'The ABMF portal had a layered API testing strategy. At the unit level, backend teams owned contract tests verifying request/response schemas. At the integration level, I used Postman collections organised by domain: authentication, investor management, transaction processing, and portfolio reporting. Each collection had environment files for dev/staging/prod, with pre-request scripts to refresh OAuth tokens and generate test transaction IDs. Newman ran these collections in the Azure DevOps pipeline after every staging deployment — about 180 API tests completing in under 3 minutes. For security, I separately ran IDOR tests across all investor-facing endpoints using two test investor accounts. We also used Karate for the more complex transaction flow tests where we needed data-driven testing with multiple scheme codes and amounts — Karate\'s table-driven syntax was cleaner than Postman for that.'},
+{q:'How do you ensure API tests do not create test pollution — leftover data that affects subsequent tests?',cat:'Test Data Management',ans:'Test data isolation is enforced at the fixture level. For each test suite, I create all required data via API calls before the test, capture the created resource IDs, run the tests, then delete the data in teardown. In Postman, this means a pre-request script that calls a setup endpoint and stores the created ID as a collection variable, and a folder-level test script that calls a cleanup endpoint. In Karate, yield-style setup/teardown via Background and Hooks. For stateful workflows (like a multi-step transaction), I use a dedicated test environment that is reset nightly via an automated seed script. The principle: every test run should be idempotent — you can run it 10 times and get the same result without manual cleanup.'}
+],
+scenarios:[{
+title:'API Breaking Change Deployed to Staging — Integration Tests All Failing',
+setup:'Your team\'s Postman/Newman CI pipeline suddenly has 60% failures after a backend team deployed a service update to staging. The error pattern shows unexpected response schema changes — fields renamed and a nested object flattened. You were not notified of the breaking change.',
+criteria:['Triage: identify the exact schema changes causing failures','Differentiate intentional breaking changes from bugs','Communicate with the backend team immediately — was this planned?','Assess downstream impact: which consumers are affected beyond your tests','Advocate for a contract testing process to prevent recurrence','Update tests to match new schema if change is legitimate and approved','Establish a change notification process for shared API contracts'],
+ideal:'Run a diff on the response schema between last green build and current. List all breaking changes with affected test names. Raise with backend team: (1) If unintentional — revert or hotfix. (2) If intentional — the process failed: breaking changes need advance notice, versioning, and consumer coordination. Update Postman tests to new schema. Propose introducing Pact contract tests so provider changes are validated against consumer expectations before deployment. Establish API change notification in the team working agreement.'
+}],
+codeChallenge:[{
+title:'Karate DSL Feature File for Fund Purchase API',
+desc:'Write a Karate DSL feature file that: authenticates via OAuth, purchases a mutual fund, and validates the response schema. Include a data-driven table for multiple scenarios.',
+hints:['Use Background for shared setup (auth token)','Use * def for variables','Use match response contains for partial schema validation','Use Examples table for data-driven scenarios'],
+solution:`Feature: Mutual Fund Purchase API
+
+  Background:
+    * url baseUrl
+    * def authToken = call read('auth.js') { username: '#(testUser)', password: '#(testPass)' }
+    * header Authorization = 'Bearer ' + authToken
+
+  Scenario Outline: Purchase fund scheme <schemeCode> with amount <amount>
+    Given path '/api/transactions/purchase'
+    And request
+      """
+      {
+        "schemeCode": "<schemeCode>",
+        "amount": <amount>,
+        "investorId": "#(investorId)",
+        "transactionType": "PURCHASE"
+      }
+      """
+    When method POST
+    Then status 201
+    And match response ==
+      """
+      {
+        "transactionId": "#string",
+        "status":        "#? _ == 'PENDING' || _ == 'CONFIRMED'",
+        "schemeCode":    "<schemeCode>",
+        "amount":        <amount>,
+        "timestamp":     "#string",
+        "nav":           "#number"
+      }
+      """
+    And match response.transactionId == "#present"
+
+    Examples:
+      | schemeCode      | amount |
+      | INF200K01RD8    | 5000   |
+      | INF204K01234    | 10000  |
+      | INF179K01GRW    | 1000   |
+
+  Scenario: Purchase with insufficient balance returns 400
+    Given path '/api/transactions/purchase'
+    And request { schemeCode: 'INF200K01RD8', amount: 9999999, investorId: '#(investorId)', transactionType: 'PURCHASE' }
+    When method POST
+    Then status 400
+    And match response.errorCode == 'INSUFFICIENT_BALANCE'`,
+expl:'Key patterns: (1) Background centralises auth setup. (2) call read() for reusable auth scripts. (3) match with #string, #number type markers for schema validation without hardcoding values. (4) #? predicate for enum validation. (5) Examples table makes data-driven tests clean and readable.'}
+]},
+
+{id:'m6',icon:'🔄',title:'Agile & DevOps QA',desc:'Shift-left testing, quality gates in CI/CD, sprint ceremonies, release governance',
+topics:['Shift-left testing: what it means and how to implement it','Quality gates at each CI/CD pipeline stage','Sprint QA practices: story kickoffs, three amigos, DoD','Definition of Done from a QA perspective','Test environment strategy in DevOps (ephemeral envs, IaC)','Release management: feature flags, canary releases, blue-green','Azure DevOps for QA: pipelines, test plans, dashboards','Exploratory testing in Agile contexts','Continuous testing metrics and quality dashboards','Managing technical test debt'],
+mcqs:[
+{q:'What does "shift-left testing" mean in practice for a QA Manager?',opts:['Moving the QA team\'s desks to the left side of the office','Engaging QA in requirements review, design walkthroughs, and test case creation before development begins — finding defects earlier when they cost 10x less to fix','Starting regression testing earlier in the sprint','Automating tests before writing them manually'],ans:1,expl:'Shift-left = move quality activities earlier in the SDLC. QA reviews requirements for testability, participates in three-amigos sessions, creates test cases from acceptance criteria during sprint planning, and runs static analysis in the development phase. Defects found in requirements cost ~1/10th of defects found in production.'},
+{q:'Which quality gates should be mandatory at the PR (pull request) stage in a CI pipeline?',opts:['Full regression suite','Unit tests pass, static code analysis (linting, SAST) green, code coverage threshold met, and no new critical security findings — all under 5 minutes','Manual QA sign-off','End-to-end UI tests'],ans:1,expl:'PR gates must be fast (<5 min) to avoid developer friction. Unit tests + linting + coverage threshold + quick SAST scan. End-to-end tests belong in post-merge/staging pipelines. If PR gates are too slow, developers bypass them — as seen in the slow Playwright suite scenario.'},
+{q:'What is the Three Amigos meeting and what is the QA lead\'s role in it?',opts:['A team-building exercise','A refinement session involving the BA, Developer, and QA lead to clarify a user story — QA surfaces edge cases, asks "what happens when...?" questions, and agrees acceptance criteria before dev starts','A sprint retrospective format','A daily standup variant'],ans:1,expl:'Three Amigos (BA + Dev + QA) happens before a story is worked. QA\'s role: (1) Ask edge case questions the BA and Dev may not think of, (2) Confirm acceptance criteria are testable, (3) Agree on test scenarios that will prove the story is done. This prevents late surprises — "I didn\'t know QA needed that field" — and is core to BDD-style development.'},
+{q:'How do you define "Done" for a user story from a QA perspective?',opts:['Developer has committed the code','Code committed + unit tests pass + QA acceptance tests pass + no open critical defects + automation updated + exploratory testing signed off + documented in test plan','QA has written the test cases','The story is in staging'],ans:1,expl:'A robust QA-inclusive DoD: code + unit tests + functional acceptance tests + automation coverage updated + no open Sev1/Sev2 defects + exploratory session completed + performance impact assessed if applicable. DoD prevents stories that are "mostly done" from clogging releases.'},
+{q:'A developer argues that QA involvement in sprint ceremonies slows down the team. How do you respond?',opts:['Agree and withdraw from ceremonies','Withdraw from retrospectives but stay in planning','Present data: stories that go through Three Amigos have 40-60% fewer defects in QA and take less total time (requirement rework avoided). QA in ceremonies is investment, not overhead','Escalate to the Scrum Master'],ans:2,expl:'The "QA slows us down" argument is answered with data on defect cost of requirements vs code phase. Earlier QA involvement reduces total cycle time even if it appears to add meeting time. Frame it as: "we are preventing 3-day bug investigations by spending 20 minutes in kickoff."'},
+{q:'What is the purpose of feature flags in a DevOps release strategy from a QA perspective?',opts:['Feature flags are only for developers','Feature flags allow new features to be deployed to production but kept hidden — enabling QA to test in production with real data while users see the old behaviour, and enabling instant rollback without deployment','Feature flags replace the need for testing','Feature flags are the same as environment variables'],ans:1,expl:'Feature flags decouple deployment from release. QA benefits: (1) Test in production-like conditions with real infrastructure and data, (2) Gradual rollout (canary) to real users while monitoring, (3) Instant disable if a defect is found — no deployment needed. This is how BFSI and OTT platforms release continuously without big-bang risk.'},
+{q:'How do you measure the health of a continuous testing pipeline?',opts:['Count the number of tests only','Track: test execution time trend, flakiness rate (<2% target), pipeline success rate, mean time to detect a regression, and automation coverage change per sprint','Track only pass/fail numbers','Count defects found per sprint'],ans:1,expl:'Continuous testing health metrics: (1) Execution time trend — is it growing unsustainably? (2) Flakiness rate — above 5% signals a problem. (3) Pipeline success rate — how often does CI green mean actually green? (4) MTTD — how quickly do tests catch a regression after commit? (5) Coverage trend — is automation growing with the product?'},
+{q:'What is your approach to managing test environment drift in a multi-team product with frequent deployments?',opts:['Manually track environment configurations in a spreadsheet','Implement Infrastructure as Code (IaC with Terraform/Helm) for environment provisioning, use ephemeral environments per feature branch, and establish environment health checks in the pipeline before test execution','Accept that environments will drift and retest when issues occur','Ask DevOps to manage it entirely'],ans:1,expl:'Environment drift is a leading cause of "works on my machine" failures and flaky tests. IaC ensures environments are provisioned identically from code. Ephemeral envs per PR eliminate shared environment conflicts. Pre-test environment health checks catch configuration issues before wasting test execution time.'}
+],
+mock:[
+{q:'How do you embed QA into an Agile team without creating a QA bottleneck at the end of the sprint?',cat:'Agile QA',ans:'The bottleneck pattern happens when QA is treated as a gate at the end — dev finishes on day 8, QA has 2 days. I eliminate this through three practices. First, parallel working: QA writes test cases from acceptance criteria on day 1 while dev designs, so I am testing as soon as a story is technically ready rather than waiting for batch delivery. Second, developer self-testing: I work with the team to ensure devs run the existing automated smoke suite before handing over — QA gets stable builds, not first-pass code. Third, continuous integration of test results: rather than a "QA phase," test results are visible to the whole team throughout the sprint. When I implemented this at a 12-person scrum team for ABMF, stories that used to arrive in the last 3 days of sprint started arriving on day 4-5, and our sprint completion rate went from 65% to 88%.'},
+{q:'Describe how you set up and govern quality gates in an Azure DevOps CI/CD pipeline.',cat:'DevOps QA',ans:'I structure pipeline quality gates in four stages. Stage 1 — PR pipeline (under 5 min): unit tests, linting, SAST scan, code coverage threshold. Blocks merge if any fail. Stage 2 — Post-merge pipeline to dev environment (under 15 min): smoke suite (Playwright, ~50 critical tests), API contract tests (Newman), integration tests. Stage 3 — Staging pipeline (nightly + on-demand): full Playwright regression, security baseline scan (OWASP ZAP), performance regression check (K6 baseline). Stage 4 — Pre-production gate: manual exploratory sign-off, release checklist, DER check against threshold. In Azure DevOps, I use Environments with Approvals for Stage 4 — the pipeline cannot proceed to production without a named approver (QA lead + product owner). I publish test results as JUnit XML and use Test Plans for traceability between requirements and test execution.'}
+],
+scenarios:[{
+title:'Dev Team Wants to Remove Regression Testing from Each Sprint to Go Faster',
+setup:'In a sprint retrospective, the development team proposes removing the regression testing cycle from each sprint. They argue it slows releases, most regression issues are caught by unit tests, and the team should move to continuous delivery without a regression gate. You are the QA Manager.',
+criteria:['Do not simply refuse — engage with the legitimate concern about speed','Present data on what regression testing has historically caught that unit tests missed','Propose a solution: shift to risk-based regression + automation, not elimination','Offer to reduce regression time with better automation coverage and parallelism','Agree on measurable success criteria for the new approach','Establish a trial period with monitoring','Protect the business risk acceptance conversation being done consciously'],
+ideal:'Validate the concern first — if regression takes 3 days manually, that IS a problem. Counter with data: show defects caught in regression that unit tests missed (integration, UI, end-to-end flows). Propose: (1) Automated regression via Playwright runs in the pipeline unattended — zero sprint capacity. (2) Manual regression only for new features and high-risk areas — time-boxed. (3) Risk-based selection: not all 400 tests every sprint. Agree to a 2-sprint trial with defect metrics as success criteria. Frame it as: "let\'s make regression invisible through automation, not eliminate the safety net."'
+}],
+codeChallenge:null},
+
+{id:'m7',icon:'🤖',title:'AI-Assisted Testing',desc:'Claude Code, Playwright MCP, GitHub Copilot, Google Antigravity in QA workflows',
+topics:['AI in testing landscape — where it genuinely helps vs. hype','Claude Code for test generation and framework design','Playwright MCP: agent-based browser automation','GitHub Copilot for test code completion and refactoring','Google Antigravity for visual and exploratory testing','AI for test data generation and synthetic data','AI for requirements analysis and AC extraction','Prompt engineering for test generation quality','Risks and governance of AI-generated tests','AI-assisted defect analysis and root cause identification'],
+mcqs:[
+{q:'What is the MOST effective use of AI code tools (Claude Code, GitHub Copilot) in test automation?',opts:['Fully automate test creation with zero human review','Generate base test code and POM structures that a human reviews, refines, and validates — AI writes the first draft, QA engineers own the quality','Replace QA engineers entirely','Use AI only for test documentation'],ans:1,expl:'AI as a force multiplier: 70-80% of boilerplate code is AI-generated, freeing QA engineers for edge case thinking, framework design decisions, and validation. The critical discipline: every AI-generated test must be reviewed AND must be verified to fail when the feature is broken (mutation testing mindset).'},
+{q:'What is Playwright MCP and how does it differ from standard Playwright scripting?',opts:['A Playwright plugin for mobile testing','An MCP (Model Context Protocol) server that allows AI agents to control a browser via natural language instructions — generating test steps from journey descriptions rather than hand-coding each action','A Playwright configuration file format','A cloud execution platform for Playwright'],ans:1,expl:'Playwright MCP turns browser automation into an agent task: you describe the user journey in natural language, the MCP server executes it against the live app, and generates code. Useful for rapid scenario exploration, generating base scripts, and accessibility testing. The output still requires human review and refactoring for production test suites.'},
+{q:'What is the key risk of using AI-generated test scripts without careful human validation?',opts:['AI-generated tests are always too slow','AI-generated tests may have correct structure but weak assertions — tests that always pass regardless of application state (false positives), giving a false sense of coverage','AI tools are too expensive','AI-generated tests only work in Chrome'],ans:1,expl:'The "always-green" risk: an AI-generated test that clicks a button and asserts "the page loaded" passes even when the underlying feature is broken. Every AI-generated test must be validated with mutation testing — intentionally break the feature and confirm the test fails. If it does not fail, the assertion is insufficient.'},
+{q:'How can AI tools assist in the requirements analysis phase of QA?',opts:['AI cannot help with requirements','Use Claude or ChatGPT to analyse user stories for: missing acceptance criteria, ambiguous language, untestable requirements, and to generate an initial test scenario list — saving 30-40% of test design time','AI replaces the need for acceptance criteria entirely','Only use AI for code generation'],ans:1,expl:'AI is effective at requirements analysis: parsing user stories for gaps ("what happens when the user enters an invalid amount?"), generating edge cases, identifying contradictions, and producing a first-pass test scenario list. Human QA reviews and enriches the output. This is particularly valuable for large backlogs before sprint planning.'},
+{q:'What governance controls should a QA Manager implement for AI-assisted test automation?',opts:['No governance needed — AI tools are reliable','Define review checkpoints: AI-generated scripts require human review before merge, test must demonstrably fail on broken feature, assert coverage must meet minimum threshold, and AI tool usage must be logged for audit purposes','Ban AI tools from the QA process','Only senior engineers can use AI tools'],ans:1,expl:'AI governance in QA: (1) Mandatory human review before any AI-generated test is committed. (2) Failure verification — test must fail on a known broken build. (3) Coverage quality metric — not just quantity of tests. (4) Audit trail of AI-generated vs human-written tests for compliance (relevant in BFSI/Healthcare). (5) Model version tracking — AI tool updates can change output patterns.'},
+{q:'You need to generate realistic test data for 10,000 investor profiles for load testing. How do AI tools help?',opts:['Manually create all 10,000 profiles','Use AI (Claude, ChatGPT, or GitHub Copilot) to generate a Python/Faker-based data generation script that produces realistic, PAN-valid, address-valid investor profiles at scale — then use this in your JMeter/K6 scripts','Use only one investor profile repeated 10,000 times','Buy test data from a vendor'],ans:1,expl:'AI accelerates test data generation scripts: describe the data model to Claude, get a Faker-based generator with realistic Indian PAN numbers, addresses, and investment amounts. Review and refine. This is far faster than manual creation and produces more realistic distributions than repeated single records — critical for catching concurrency defects.'}
+],
+mock:[
+{q:'How have you practically integrated AI tools into your QA workflow? Give specific examples.',cat:'AI in Practice',ans:'Three concrete integrations. First, Claude Code for POM generation: I share the HTML structure of a page with Claude and ask for the Page Object class. It generates 80-90% of the class correctly — I then refine locators and add missing edge-case methods. This cut POM development time from 2 hours to 30 minutes per page. Second, Playwright MCP for exploratory script generation: for the PwC CLM project, I used Playwright MCP to record new contract creation journeys by describing steps in natural language. The generated code served as a starting scaffold that I then hardened. Third, GitHub Copilot for test data setup code: writing factory functions and fixture helpers is repetitive — Copilot completes patterns I start, particularly useful for Karate feature file data tables. Governance I enforced: every AI-generated test must fail on a broken feature before it is committed. No exceptions.'},
+{q:'What are the limitations of AI in test automation that a QA Manager needs to be aware of?',cat:'AI Limitations',ans:'Five real limitations I have encountered. (1) Assertion quality: AI generates structurally correct tests but with shallow assertions — "status is 200" rather than "response matches schema AND business rule is enforced." Human expertise is needed to make assertions meaningful. (2) Domain blindness: AI does not understand that in a mutual fund platform, a transaction pending state has specific SLA rules — domain knowledge must be injected through good prompts or human review. (3) Test interdependencies: AI-generated tests often have implicit state dependencies — they assume data from a previous test. Human refactoring is needed for isolation. (4) Security blind spots: AI rarely generates security-focused assertions unless explicitly prompted. (5) Maintenance debt: AI-generated code can have unusual patterns that are hard for junior engineers to maintain. Code style guidelines must be enforced post-generation. The summary: AI is a junior QA engineer that is very fast but needs experienced supervision.'}
+],
+scenarios:[{
+title:'Leadership Asks: Should We Replace Manual Testers with AI Tools?',
+setup:'Your CTO has seen an article claiming AI can fully replace manual QA. In the next leadership meeting, you are asked: "Can we reduce the QA headcount by 60% by using AI tools for test automation?" You have a team of 30 QA engineers.',
+criteria:['Acknowledge what AI genuinely can do — do not be defensive','Present an honest ROI analysis of AI tools on current productivity','Identify which activities AI replaces vs. which it augments','Distinguish automation-ready work from judgment-dependent work','Propose a strategic plan rather than a flat no or yes','Address the risk of reducing oversight too aggressively in BFSI/Healthcare regulated contexts','Offer a phased experiment with measurable outcomes'],
+ideal:'Honest response: AI tools increase QA engineer productivity by 30-50%, not 60% headcount reduction. Activities AI handles well: test script generation scaffolding, boilerplate code, test data creation, defect pattern analysis. Activities requiring human QA: domain-specific judgment, exploratory testing, risk assessment, regulatory compliance verification, security testing strategy, stakeholder communication. Proposal: pilot AI tools on one team for one quarter, measure throughput change, then make a data-driven headcount decision. In regulated domains (BFSI), AI-generated tests still require human sign-off for compliance — this is a governance requirement, not preference.'
+}],
+codeChallenge:null},
+
+{id:'m8',icon:'🎤',title:'Behavioral & STAR Questions',desc:'Senior-level leadership stories, conflict, failure, influence and vision questions',
+topics:['STAR method: Situation → Task → Action → Result (with data)','Structuring answers for senior QA Manager level','Key behavioral themes: leadership, transformation, conflict, failure, success','Questions about managing up and influencing executives','Questions about building and scaling teams','Questions about technical decisions and their business outcomes','Questions about handling ambiguity and incomplete information','Preparing 5-7 signature stories that cover multiple questions'],
+mcqs:[
+{q:'What does STAR stand for in behavioral interview methodology?',opts:['Skills, Training, Abilities, Results','Situation, Task, Action, Result — a framework for structuring specific examples that demonstrate competency','Strategy, Testing, Automation, Reporting','Standard Testing and Review procedure'],ans:1,expl:'STAR structures behavioral answers: Situation (context and stakes), Task (your specific responsibility), Action (what YOU specifically did — not "we"), Result (quantifiable outcome). For senior roles, the Result must include business impact metrics, not just "it went well."'},
+{q:'A senior interviewer asks "Tell me about a time you failed." What is the worst response?',opts:['Describing a real failure with a learning','Saying "I cannot think of a failure" or describing a minor trivial mistake that was not really a failure','Discussing a failure that led to a process improvement','Talking about a team failure where you were accountable'],ans:1,expl:'"I cannot think of a failure" signals low self-awareness. "I work too hard" is a cliché trap. The best failure stories: real failure with genuine consequences, honest analysis of what went wrong, what you personally did differently, and how the team/organisation benefited from the learning. Senior interviewers expect scars — they are a sign of experience.'},
+{q:'How long should a STAR answer be in a senior-level interview?',opts:['30 seconds','90 seconds to 2.5 minutes — enough to show depth without losing the interviewer; structure clearly with a crisp Result','5+ minutes for full detail','As long as it takes'],ans:1,expl:'90s-2.5 min is optimal: 20s situation, 20s task, 60s action (the meat), 30s result with metrics. Anything longer loses the interviewer. Anything shorter signals a lack of depth or preparation. Practice timing your stories.'},
+{q:'When answering "Tell me about managing a difficult stakeholder," what must your answer demonstrate?',opts:['That you were right and the stakeholder was wrong','Empathy, data-driven communication, your ability to understand their perspective and find common ground, and the business outcome of the resolution','That you escalated immediately','That you avoided the conflict'],ans:1,expl:'Difficult stakeholder questions test: (1) Emotional maturity — you did not escalate immediately or become defensive. (2) Communication skill — you adapted your approach to their communication style and concerns. (3) Problem-solving — you found a solution that addressed their underlying need. (4) Outcome — the relationship and project both improved.'},
+{q:'What makes a "Result" in a STAR answer strong?',opts:['Saying "it went well" and "the team was happy"','Quantified business outcomes: "reduced regression cycle from 5 days to 1.5 days," "achieved 80% automation coverage in 4 months," "DER dropped from 8% to 1.2% within 2 releases"','Describing what you planned to do next','Listing the tools you used'],ans:1,expl:'Strong Results: specific numbers, percentages, time reductions, cost savings, or risk metrics. Connect to business outcomes: "This directly contributed to on-time delivery of the ABMF portal with zero production-critical defects in the first 60 days." Generic outcomes ("the project was successful") are forgettable.'},
+{q:'An interviewer asks: "Where do you see QA going in the next 3-5 years?" What demonstrates senior QA leader vision?',opts:['Saying "more automation"','Articulating a shift from test-and-report to embedded quality engineering: shift-left, AI-augmented testing, quality as a shared team responsibility, continuous quality in CD pipelines, and QA\'s role evolving to quality coaching and risk advisory','Saying "I am not sure, technology changes fast"','Focusing only on new tools'],ans:1,expl:'A senior QA leader articulates a vision: QA moving from gate-keeper to quality enabler, from defect detection to defect prevention, from manual/automation dichotomy to continuous quality engineering. Mention AI augmentation, BDD/shift-left, quality dashboards replacing test reports, and QA as risk management partner to the business.'}
+],
+mock:[
+{q:'Tell me about a time you led a significant QA transformation in an organisation.',cat:'Transformation',ans:'At Impiger, when I took on the Manager role in 2022, the QA practice was primarily reactive — manual testing at the end of projects with Selenium automation at around 20% coverage and high flakiness. I led a transformation over 18 months. Situation: multiple project delays caused by late QA integration and 35-40% test failure rates due to flaky automation. Task: redesign the QA practice end-to-end. Actions: (1) Established a QA Centre of Excellence with standardised processes, templates, and a Playwright-first automation standard — retiring Selenium. (2) Created an upskilling programme for 20 manual testers on Playwright Python. (3) Introduced shift-left — QA participates in all story kickoffs and three-amigos sessions. (4) Built real-time Azure DevOps dashboards replacing weekly status emails. (5) Implemented TaaS governance model for client engagements with defined SLAs. Result: automation coverage rose from 20% to 75% across projects, flakiness rate dropped from 35% to under 3%, release cycle time reduced by 40%, and we signed 3 new TaaS contracts partly based on the QA capability story. Most importantly, QA was no longer seen as a bottleneck — it became a differentiator.'},
+{q:'Describe a situation where a critical production defect was found that should have been caught in testing. How did you handle it?',cat:'Failure & Recovery',ans:'On the Sun NXT OTT platform, a DRM entitlement bug allowed certain content to play on unauthorised devices for approximately 6 hours before detection. It should have been caught in our device compatibility matrix testing. Situation: production incident with potential content piracy implications and contractual penalty risk. Task: contain the incident, understand why testing missed it, and prevent recurrence. Actions: immediately coordinated with DevOps to disable the affected entitlement endpoint. Then conducted an honest post-mortem: the bug appeared only on a specific combination of firmware version and geographic region that was not in our test matrix. We had tested the happy path but not the edge case of the newly released device firmware. I reported this transparently to the client with a full timeline, impact assessment, and remediation plan — no minimising. For prevention: expanded device matrix, introduced environment-based test data that covered firmware variants, and added a production smoke suite running every 30 minutes for DRM entitlement checks. Result: the client appreciated the transparency and the post-mortem quality. Our test matrix expansion caught 2 similar issues in the following month before they reached production.'},
+{q:'Tell me about a time you had to push back on an unrealistic deadline from senior management.',cat:'Managing Up',ans:'For a major BFSI portal launch, the business committed to a go-live date that left 3 weeks for QA of a module that had just completed development — when our estimate was 5 weeks for adequate coverage including security testing. Situation: contractual go-live pressure, significant financial penalty for delay. Task: protect the product quality without being the "QA is blocking delivery" story. Actions: I prepared a risk-quantified analysis rather than just saying "we need more time." I showed: (1) What 3 weeks of testing would cover vs. what would be untested. (2) Historical data: similar coverage gaps in past releases correlated with production defect rates 4x higher. (3) Three options with trade-offs. (4) My recommendation: 4-week timeline with scope adjustment — exclude 2 low-risk non-financial modules from scope, defer their full testing to a post-go-live sprint. I presented this to the project director and client together, with risk acceptance documented for the recommended option. Result: the director approved the 4-week option. We launched with the reduced scope, zero production defects in financial transaction flows in the first month, and the deferred modules were successfully delivered 3 weeks post-launch. Key lesson: come with options and data, never just "no."'},
+{q:'How do you stay current with QA trends and continue your professional development while managing a large team?',cat:'Growth',ans:'I structure this in three ways. First, deliberate learning: I set aside 3-4 hours per week — I hold this time on my calendar like a meeting. I used this time to earn my ISTQB AI Testing certification and to build hands-on skills with Playwright MCP and Claude Code, which I then introduced to the team. Second, learning through the team: when I assign automation engineers to evaluate a new tool, I do the evaluation myself first in a small POC, then review their findings — staying technically credible. Third, community and peer learning: I follow the Ministry of Testing community, participate in QA leadership forums, and specifically track AI-in-testing developments which are moving extremely fast. My personal rule: if I am recommending a tool or practice to my team, I need to have used it on at least a small real problem myself. I cannot effectively coach what I have not practised.'},
+{q:'Describe your leadership style and how it has evolved over your 16 years in QA.',cat:'Leadership Philosophy',ans:'My style has evolved from "expert contributor" to what I would call "quality architect." Early in my career, I led by knowing more than anyone else in the room — I was the automation expert, the go-to person for technical decisions. That works to about team-lead level. As I moved into management, I learned that scale requires a different approach. Now I lead through three principles. First, build capability, not dependency — my goal is that the team can operate without me for a sprint. If they cannot, I have a dependency problem. Second, data over opinion — any significant QA decision should have supporting metrics or a documented rationale. This protects the team from politics and keeps discussions objective. Third, make quality everyone\'s job — my definition of success is a development team that considers testability in every design decision, not a QA team that catches problems at the end. The evolution was humbling: letting go of being the smartest person in the room and instead becoming the person who creates the environment where the team collectively outperforms anything I could do alone.'}
+],
+scenarios:[{
+title:'New CTO Believes QA is a Bottleneck and Wants to Dissolve the QA Team',
+setup:'A newly appointed CTO with a strong engineering background believes QA as a separate function is an outdated model. In your first meeting, they state: "In modern engineering, quality is the developer\'s responsibility. I want to dissolve the QA team and embed 1 QA engineer per squad at most." You have a team of 30. This affects your role directly.',
+criteria:['Stay composed — this is a business and leadership discussion, not a personal attack','Understand their real concern before defending','Present the data: what QA provides that embedded engineers alone cannot at this scale','Distinguish between QA function and QA activities — both can coexist','Propose a modernised model rather than defending the status quo','Acknowledge what the CTO is right about — excessive gatekeeping is a real problem','Make the case in engineering and business terms, not QA territory terms'],
+ideal:'Respond with curiosity first: "I would love to understand the specific friction points you have observed." Listen. Then: agree with the principle (quality IS a shared responsibility — this is exactly what shift-left means) but challenge the conclusion (embedded-only at scale creates inconsistency and blind spots). Present data: DER, production incident rate trends, what your team caught in the last 6 months. Propose a hybrid model: reduce central QA team, strengthen embedded QA engineers with specialist support (performance, security, test architecture) from a smaller central practice. Offer a 6-month pilot of the embedded model in 2 squads with metrics to evaluate. Frame it as: "Let\'s evolve the model together — I agree the old model needs to change."'
+}],
+codeChallenge:null},
+
+{id:'m9',icon:'🗄️',title:'Database Testing',desc:'SQL queries, data integrity, stored procedures, DB performance & migration testing',
+topics:['Database testing types: structural, functional, non-functional','SQL for testers: SELECT, JOIN, subqueries, aggregates','Data integrity validation: PK, FK, constraints, cascades','Stored procedure and trigger testing','ETL pipeline testing: source-to-target mapping, transformation rules','Database migration testing: schema changes, data migration validation','Performance testing: query execution plans, indexing, slow queries','NoSQL testing concepts: MongoDB, Redis — what differs from RDBMS','Test data management: masking, synthetic data, referential integrity','ACID properties and transaction testing','DB security testing: SQL injection, privilege escalation, audit logs','Oracle, PostgreSQL, SQL Server — key differences for a tester'],
+mcqs:[
+{q:'What is the primary difference between black-box and white-box database testing?',opts:['Black-box tests only UI; white-box tests only APIs','Black-box database testing validates data outcomes from the application layer without SQL knowledge; white-box testing directly queries the DB to verify internal data states, constraints, and stored logic','Black-box is automated; white-box is manual','There is no meaningful difference'],ans:1,expl:'Black-box DB testing: submit data through the UI/API and verify the correct values appear in the UI response. White-box DB testing: write SQL to directly validate the correct rows, columns, and relationships were persisted, constraints enforced, and stored procedures behaved correctly. Both are necessary — UI validation misses DB-level anomalies.'},
+{q:'You need to verify that deleting an investor record cascades correctly to their transactions. Which SQL query validates this?',opts:['SELECT * FROM investors','SELECT t.* FROM transactions t LEFT JOIN investors i ON t.investor_id = i.id WHERE i.id IS NULL — verifying orphan transactions do not exist after delete','DELETE FROM investors and check UI','Only test via the application, not SQL'],ans:1,expl:'After deleting an investor, a LEFT JOIN that returns NULL for the investor side confirms no orphan transaction records remain. This validates ON DELETE CASCADE is working. Extend this pattern to all child tables: portfolio_holdings, documents, KYC records. Direct SQL verification is faster and more reliable than UI-based checks for referential integrity.'},
+{q:'What are ACID properties and why do they matter for BFSI database testing?',opts:['Automated CI Integration Design — a DevOps concept','Atomicity, Consistency, Isolation, Durability — guarantees that DB transactions are all-or-nothing, maintain valid state, do not interfere with each other, and survive failures. Critical for financial transactions where partial commits cause data corruption','A type of database index','ACID only applies to NoSQL databases'],ans:1,expl:'For a mutual fund platform: Atomicity — a purchase transaction must debit the investor and credit the fund together or not at all. Consistency — account balances must always balance. Isolation — concurrent transactions must not produce dirty reads (investor sees mid-transaction state). Durability — once committed, a transaction survives a crash. Test each: inject failures mid-transaction, run concurrent transactions, verify data after simulated crashes.'},
+{q:'How do you test an ETL pipeline for a BFSI reporting system?',opts:['Run the pipeline and check if it completes without error','Validate source-to-target row counts, compare transformed field values against mapping rules, check for null/default substitutions, verify rejected records in the error log, and run reconciliation totals (sum of amounts source vs target)','Only check the target database has data','Run a UI report and see if numbers look right'],ans:1,expl:'ETL testing checklist: (1) Row count reconciliation — every source row accounted for. (2) Field-level mapping — each transformation rule verified with specific test data covering edge cases (nulls, max values, special chars). (3) Data type and format validation. (4) Rejected records — intentional bad data should land in error tables with correct reason codes. (5) Business totals — sum(amount) source must equal sum(amount) target. (6) Incremental load — re-running should not duplicate records.'},
+{q:'During database migration testing for a schema change (adding a NOT NULL column), what is the MOST critical test?',opts:['Test that the new column appears in the UI','Test that existing data rows have a valid default populated (not null violations), new inserts respect the constraint, application code handles the new column without errors, and rollback restores the previous schema state','Only test new records after migration','Check that the migration script ran without error messages'],ans:1,expl:'NOT NULL column migration risks: (1) Existing rows — what default was applied? Is it correct per business rules? (2) Application code — does it now send the new field, or does it fail with a constraint violation? (3) Rollback — can you reverse the migration cleanly if a defect is found post-deploy? (4) Performance — on a 50M-row table, the migration itself may lock the table. Test in staging with production-volume data first.'},
+{q:'How do you identify a slow database query that is causing API response time degradation?',opts:['Guess which query is slow and optimise it','Enable slow query logging in the DB, capture the execution plan (EXPLAIN/EXPLAIN ANALYZE), identify full table scans vs index seeks, check for missing indexes on JOIN and WHERE columns, and measure improvement after index creation','Add more server RAM','Rewrite all queries from scratch'],ans:1,expl:'Systematic query optimisation: (1) Slow query log identifies queries above a threshold (e.g. >1s). (2) EXPLAIN ANALYZE shows the execution plan — look for Seq Scan on large tables (bad) vs Index Scan (good). (3) Check index coverage on WHERE, JOIN ON, and ORDER BY columns. (4) Measure before/after with EXPLAIN ANALYZE timing. For BFSI portfolio queries joining investors × holdings × NAV history, missing composite indexes commonly cause 10-100x degradation at scale.'},
+{q:'What is the difference between testing a stored procedure and testing a regular SQL query?',opts:['There is no difference','Stored procedures have business logic, branching, exception handling, and transaction management embedded in the DB — testing requires: calling the procedure with boundary/invalid inputs, verifying output parameters and return values, confirming transaction rollback on exceptions, and checking side effects on all affected tables','Stored procedures cannot be tested directly','Only the DBA should test stored procedures'],ans:1,expl:'Stored procedure testing scope: (1) Valid inputs — verify correct transformation and output. (2) Boundary values — zero amounts, max values, negative numbers. (3) Invalid inputs — what does the procedure do with nulls or out-of-range values? (4) Exception paths — does it ROLLBACK correctly on error? (5) Side effects — which tables does it touch and in what state? Use a transaction wrapper in tests so you can ROLLBACK test data after each test run.'},
+{q:'How do you test data masking in a BFSI system where production data is used in staging?',opts:['Trust that masking was configured correctly and skip testing','Verify that PII fields (PAN, Aadhaar, mobile, email, account number) are masked in staging using specific test queries, that masked values maintain format validity (PAN format still valid), that masked data cannot be reverse-engineered, and that referential integrity is maintained across masked tables','Only check 5 random records','Ask the DBA to confirm masking is enabled'],ans:1,expl:'Data masking test checklist: (1) Query each PII column — no production values should appear. (2) Format validity — a masked PAN should still match the PAN regex pattern so application validation does not break. (3) Referential integrity — investor_id masked consistently across all tables (same masked ID everywhere). (4) Irreversibility — confirm masked values cannot be decoded. (5) Completeness — all tables containing PII are masked, not just the primary investor table. Regulatory requirement in BFSI — failure is a compliance violation.'}
+],
+mock:[
+{q:'Walk me through how you approach database testing for a BFSI application like ABMF.',cat:'DB Test Strategy',ans:'Database testing for ABMF was structured in four layers. First, schema validation — before any functional testing, I ran automated checks on every table: column names, data types, NOT NULL constraints, PK/FK relationships, and index existence all matched the approved schema document. I used a Python script querying information_schema to diff the actual schema against expected. Second, data integrity testing — for every application workflow (investor creation, purchase, redemption), I wrote SQL validation queries that ran post-action to verify the correct rows were created, updated, or soft-deleted, with correct values and no orphan records. Third, stored procedure testing — ABMF had 15+ stored procedures for NAV calculations, statement generation, and compliance reporting. I tested each directly via EXEC calls with a test data wrapper that rolled back after each test. Fourth, ETL validation for the regulatory reporting pipeline — row count reconciliation, field-level spot checks, and sum reconciliation of transaction amounts source vs target. My SQL test suite ran as a post-deployment step in the Azure DevOps pipeline, giving us DB-level confidence after every release.'},
+{q:'How do you handle test data for database testing in a regulated BFSI environment?',cat:'Test Data',ans:'Three-layer approach. Layer 1 — synthetic data generation: I use Python Faker with custom providers for BFSI-specific fields — PAN numbers (ABCDE1234F format), IFSC codes, scheme codes, NAV values — to generate realistic but entirely synthetic investor and transaction datasets. This covers 80% of test scenarios. Layer 2 — masked production data: for complex scenarios that need realistic data distributions (e.g., portfolio aggregation with 10,000 holdings), I work with the DBA to apply column-level masking to a production snapshot. I then validate the masking: PII columns queried directly should show only masked values, format validity confirmed, cross-table referential consistency verified. Layer 3 — golden dataset: a curated, hand-crafted set of ~50 investors with known data states (specific balances, transaction histories, edge cases) that serve as stable regression test data. This golden dataset is version-controlled in the repo, seeded via API before the test run, and torn down after. The key discipline: no direct test-data manipulation via SQL in tests — all setup goes through the application API so the data is in a valid state the application itself created.'},
+{q:'Describe a database bug you found that would have been missed by UI testing alone.',cat:'Real Example',ans:'On the ABMF mutual fund portal, a redemption workflow appeared to work correctly in the UI — confirmation page showed, email was sent, the investor saw "Redemption Submitted." But my post-action SQL validation query revealed the transaction record had been created with transaction_type = NULL instead of "REDEMPTION". The stored procedure had a parameter defaulting to NULL when the application passed an unexpected enum value after a recent code refactor. The UI had no visibility into this — it was reading from a response object the API constructed before the DB write completed. In production, this would have caused the overnight NAV settlement batch to skip these transactions entirely — investors would not have received their redemption proceeds. The fix was straightforward (correct the enum mapping), but detection required white-box DB testing. This case became the justification for making SQL post-action validation mandatory in our test pipeline.'}
+],
+scenarios:[{
+title:'Data Corruption Found in Production: Transaction Amounts Mismatch',
+setup:'Three weeks after a BFSI portal go-live, the finance team reports that 127 transaction records in the transactions table have amounts that do not match what investors were shown in their confirmation emails. The discrepancy is between 0.01% and 2% of the transaction value — consistent with a floating-point rounding issue. You were the QA lead.',
+criteria:['Immediate triage: quantify scope — how many records, which date range, total financial exposure','Identify the root cause: floating point vs decimal type, rounding point in the calculation chain','Assess whether this is a data issue (fix the 127 records) or a live code issue (producing new corrupt records)','Coordinate a safe data fix with documented before/after values and approval process','Determine what testing missed this and why','Propose the specific test cases that would have caught it','Establish monitoring to detect future occurrences'],
+ideal:'Run a reconciliation query: SELECT id, amount, confirmed_amount, ABS(amount - confirmed_amount) as delta FROM transactions WHERE delta > 0. Categorise by delta size and date. Cross-reference with the deployment date to confirm it started post-go-live. Root cause: floating-point FLOAT column vs DECIMAL(18,4) — the difference matters at scale. Live code issue (new transactions also affected) vs data-only issue. Immediate: switch code to DECIMAL type and deploy. Data fix: DBA-executed UPDATE with each record logged before/after, approved by finance lead and tech director. What testing missed: no boundary-value SQL validation of stored amounts post-transaction, and no cross-column reconciliation test (UI confirmation amount vs DB stored amount). Add to test suite: post-transaction SQL assertion confirming DB amount matches API response amount to 4 decimal places.'
+}],
+codeChallenge:[{
+title:'SQL Validation Queries for BFSI Transaction Testing',
+desc:'Write SQL queries to: (1) validate no orphan transactions exist after investor deletion, (2) verify transaction amounts match to 4 decimal places across tables, (3) find duplicate transactions within a 5-minute window for the same investor.',
+hints:['Use LEFT JOIN ... WHERE IS NULL for orphan detection','Use ABS(a - b) < 0.00005 for decimal comparison (not =)','Use a self-join or window function for duplicate detection','Include the time window in the duplicate check using INTERVAL or DATEADD'],
+solution:`-- 1. Orphan transaction detection (investors deleted without cascade)
+SELECT t.id, t.investor_id, t.amount, t.created_at
+FROM   transactions t
+LEFT   JOIN investors i ON t.investor_id = i.id
+WHERE  i.id IS NULL;
+-- Should return 0 rows — any rows = referential integrity failure
+
+-- 2. Amount reconciliation: transactions vs audit_log
+SELECT
+  t.id,
+  t.amount           AS transactions_amount,
+  al.amount          AS audit_amount,
+  ABS(t.amount - al.amount) AS delta
+FROM   transactions t
+JOIN   audit_log al ON al.reference_id = t.id
+                    AND al.event_type = 'TRANSACTION_CREATED'
+WHERE  ABS(t.amount - al.amount) > 0.00005;
+-- Non-zero delta = rounding bug or data corruption
+
+-- 3. Duplicate transaction detection (same investor, same amount, within 5 min)
+SELECT
+  a.id        AS txn1_id,
+  b.id        AS txn2_id,
+  a.investor_id,
+  a.amount,
+  a.scheme_code,
+  a.created_at AS txn1_time,
+  b.created_at AS txn2_time
+FROM   transactions a
+JOIN   transactions b
+       ON  a.investor_id  = b.investor_id
+       AND a.amount       = b.amount
+       AND a.scheme_code  = b.scheme_code
+       AND a.id           < b.id   -- avoid self-match and reverse duplicates
+       AND b.created_at BETWEEN a.created_at
+                             AND a.created_at + INTERVAL '5 minutes';
+-- Any rows = potential double-submission defect`,
+expl:'Key patterns: (1) LEFT JOIN / IS NULL is the canonical orphan-detection pattern — faster than NOT IN on large tables. (2) ABS(delta) > threshold for float/decimal comparison — never use = for amounts. (3) Self-join with id < id avoids row pairing with itself and counting each pair twice. (4) INTERVAL-based time window targets the double-submission window. These three queries should be in every BFSI test pipeline as post-deployment smoke checks.'}
+]}
+];
+
+// Merge all modules
+const ALL_MODULES = [...MODULES, ...MODULES2];
+
+// ─── LEARNING HUB TOPICS ─────────────────────────────────────────────────────
+const LEARN_TOPICS = [
+{id:'l1',icon:'📐',title:'Testing Fundamentals & Taxonomy',
+summary:'Core testing theory interviewers use to probe senior candidates.',
+notes:[
+{h:'Test Types vs Test Levels',b:'Types (what you test): Functional, Non-functional, Structural, Regression, Confirmation. Levels (when you test): Unit → Integration → System → Acceptance. Confusing these is a common trap — "regression testing" is a type that can occur at any level.'},
+{h:'Verification vs Validation',b:'Verification: are we building the product right? (reviews, inspections, static analysis — no code executed). Validation: are we building the right product? (dynamic testing — code executed). Both are required. QA Managers own both.'},
+{h:'Test Basis & Traceability',b:'Test basis = the artefact tests are derived from: requirements, design docs, user stories, code. Traceability matrix maps test cases ↔ requirements. Critical for BFSI audits — regulators ask "which test covers requirement X?"'},
+{h:'Quality Attributes (ISO 25010)',b:'Functional Suitability, Performance Efficiency, Compatibility, Usability, Reliability, Security, Maintainability, Portability. A test strategy addresses each relevant attribute, not just functional correctness.'},
+{h:'Defect Taxonomy',b:'Defect severity (impact on system): Critical/High/Medium/Low. Priority (urgency of fix): P1/P2/P3/P4. A cosmetic defect on a compliance page may be Low severity but P1 priority. Confusing these causes stakeholder friction.'}
+],
+aiContext:'You are an expert QA instructor helping a senior QA Test Manager (16 years exp, BFSI/fintech focus) deepen their theoretical foundations. Keep explanations crisp and connect concepts to real-world QA management scenarios.'},
+
+{id:'l2',icon:'🎭',title:'Advanced Playwright Patterns',
+summary:'Anti-patterns, debugging, tracing, and production-grade framework design.',
+notes:[
+{h:'The 5 Locator Anti-Patterns',b:'(1) XPath from root (/html/body/div[3]...) — breaks on any DOM change. (2) CSS class names (.btn-blue) — styling classes change in refactors. (3) Index-based ([nth-child(2)]) — fragile when order changes. (4) Text that changes with i18n. (5) data-cy only without semantic fallback. Use: get_by_role → get_by_label → data-testid.'},
+{h:'Playwright Tracing for CI Debugging',b:'Enable with --tracing=retain-on-failure in CI. playwright show-trace trace.zip opens a full timeline: network requests, DOM snapshots, console logs at every action. Eliminates "works locally, fails CI" mystery investigations.'},
+{h:'Test Isolation Checklist',b:'Each test must: (1) create its own data via API, (2) use function-scoped page fixture, (3) not depend on previous test state, (4) clean up in a yield fixture teardown. Tests that share state are the #1 cause of order-dependent failures.'},
+{h:'Soft Assertions',b:'expect.soft() collects all assertion failures instead of stopping at the first. Use on pages with multiple independent validations (e.g., dashboard metrics) — get the full picture in one run rather than fix-run-fix-run cycles.'},
+{h:'Browser Context vs Page',b:'Context = an isolated browser session (own cookies, localStorage, auth state). Page = a tab within a context. For multi-user scenarios (e.g., admin approves investor action), create two contexts — one per user role — within the same test.'}
+],
+aiContext:'You are an expert Playwright Python instructor. The learner is a senior QA engineer who uses Playwright with Python and pytest daily. Give concrete code examples and focus on production-grade patterns, not toy examples.'},
+
+{id:'l3',icon:'🔌',title:'API & Contract Testing',
+summary:'REST fundamentals, consumer-driven contracts with Pact, and GraphQL testing.',
+notes:[
+{h:'REST API Testing Checklist',b:'For every endpoint test: status code, response schema (all fields, types), business rule validation (amounts correct, status transitions valid), auth boundary (unauthenticated → 401, wrong role → 403), error response structure (errorCode, message), and response time baseline.'},
+{h:'Consumer-Driven Contract Testing (Pact)',b:'Consumer defines what it expects from the provider (request shape + response shape). Provider verifies it can fulfil every consumer contract. Runs in CI — provider build fails if it breaks a consumer contract. Eliminates "the API changed and nobody told us" incidents in microservices.'},
+{h:'Pact vs WireMock vs Postman Mocks',b:'Pact: contract is shared and verified by both sides — true contract testing. WireMock/Postman mocks: consumer tests against a mock that nobody verifies against the real provider — false confidence. Use Pact when you own both consumer and provider. Use WireMock for third-party APIs you cannot control.'},
+{h:'GraphQL Testing Differences',b:'No fixed endpoints — test the schema (introspection), not URLs. Test query depth limits (DoS protection), field-level auth (can user A query user B\'s data via nested fields?), and N+1 query performance. Use introspection to auto-generate schema tests.'},
+{h:'API Security Test Checklist',b:'IDOR (substitute another user\'s ID), auth bypass (missing token still returns data?), mass assignment (send unexpected fields in POST body), rate limiting (100 rapid requests — throttled?), sensitive data in responses (are PAN/Aadhaar masked?).'}
+],
+aiContext:'You are an API testing expert. The learner is a senior QA Manager with Postman, Newman, and Karate DSL experience, now learning contract testing with Pact. Connect concepts to microservices architectures in BFSI/fintech.'},
+
+{id:'l4',icon:'⚡',title:'Performance Testing Strategy',
+summary:'Load models, thresholds, bottleneck analysis, and CI integration.',
+notes:[
+{h:'The 5 Performance Test Types',b:'Load: validate SLAs at expected peak. Stress: find the breaking point. Soak/Endurance: detect memory leaks at sustained load. Spike: sudden 10x traffic surge (market events). Scalability: linear capacity planning (2x users = 2x infra?). Each answers a different business question.'},
+{h:'Meaningful Thresholds',b:'Never use average response time — it hides tail latency. Use p95 and p99. For BFSI: p95 < 2s for transactions, p99 < 5s, error rate < 0.1%. Set thresholds in K6 options so the test auto-fails if SLAs are breached — CI integration without manual analysis.'},
+{h:'Bottleneck Localisation',b:'Response time degradation → check in order: (1) Application server CPU/memory (APM), (2) DB slow query log (missing index, lock contention), (3) External API latency (third-party calls), (4) Network (bandwidth, DNS). Each layer has its own tool. Never guess.'},
+{h:'Realistic Load Model',b:'Use production traffic patterns, not uniform load. A mutual fund portal has peaks at market open (9:15 AM IST) and close (3:30 PM IST). Model think time (sleep between requests). Distribute across user types (60% view portfolio, 30% transact, 10% admin). Uniform hammering of one endpoint is not a realistic test.'},
+{h:'Performance in CI',b:'Run a performance regression baseline on every staging deploy: same K6 script, compare p95 to previous run. Alert if p95 degrades by >20%. Catch performance regressions before they reach production — not during load testing weeks before release.'}
+],
+aiContext:'You are a performance testing expert with deep JMeter and K6 experience. The learner is a QA Manager who has run load tests for BFSI platforms handling 10,000+ concurrent users. Focus on strategy, interpretation, and CI integration.'},
+
+{id:'l5',icon:'🔒',title:'Security Testing for BFSI',
+summary:'OWASP Top 10, VAPT methodology, and regulatory security requirements.',
+notes:[
+{h:'OWASP Top 10 (2021) — BFSI Priority Order',b:'A01 Broken Access Control (IDOR on investor data = regulatory breach), A02 Cryptographic Failures (unencrypted PII in transit/rest), A03 Injection (SQL/NoSQL injection in search/filter endpoints), A07 Auth Failures (session fixation, weak tokens), A08 Software Integrity Failures (supply chain — npm packages). Know all 10 but these 5 are highest risk in financial platforms.'},
+{h:'VAPT Methodology',b:'(1) Reconnaissance: map all endpoints via Swagger, Burp spider, JS source. (2) Automated scan: OWASP ZAP baseline — quick wins, security headers, known CVEs. (3) Manual testing: Burp Suite — auth flows, IDOR, business logic flaws that scanners miss. (4) Exploitation attempt: PoC only, never destructive. (5) Report: CVSS-scored findings with PoC evidence and remediation steps.'},
+{h:'Business Logic vs Technical Vulnerabilities',b:'Automated scanners find technical issues (XSS, SQLi, missing headers). Business logic flaws require human testing: can an investor redeem more than their balance? Can a distributor approve their own KYC? Can a transaction be submitted twice (double-spend)? These are the most dangerous and scanner-invisible bugs.'},
+{h:'BFSI Regulatory Security Requirements',b:'RBI guidelines: data localisation, encryption at rest (AES-256), TLS 1.2+, MFA for admin access, audit logs with tamper detection, annual VAPT by CERT-In empanelled agency. PCI-DSS: if handling card payments. Know which regulation applies to which client — this comes up in interviews.'},
+{h:'Security Testing in CI/CD',b:'ZAP Baseline Scan in the pipeline: runs in seconds, catches header issues, known CVEs. SAST (SonarQube, Semgrep) on every PR: catches SQL injection patterns, hardcoded secrets. Dependency scanning (Snyk, OWASP Dependency-Check) on every build. Manual VAPT quarterly or before major releases.'}
+],
+aiContext:'You are a security testing expert specialising in BFSI applications. The learner is a QA Manager who has conducted VAPT for regulated financial platforms in India. Connect to RBI/PCI-DSS compliance requirements and give actionable testing steps.'},
+
+{id:'l6',icon:'🔄',title:'CI/CD Pipeline Design for QA',
+summary:'Quality gate architecture, shift-left implementation, and pipeline optimisation.',
+notes:[
+{h:'The 4-Stage Quality Gate Model',b:'Stage 1 — PR gate (<5 min): unit tests, linting, SAST, coverage threshold. Stage 2 — Post-merge/dev (<15 min): smoke suite, API contract tests, integration tests. Stage 3 — Staging (nightly + on-demand): full regression, security baseline, perf regression. Stage 4 — Pre-prod gate: manual exploratory sign-off, release checklist, named approver required. Each stage has a clear pass/fail criterion.'},
+{h:'Test Categorisation with Markers',b:'pytest markers: @pytest.mark.smoke (50 tests, 8 min), @pytest.mark.regression (500 tests, 45 min with parallelism), @pytest.mark.security, @pytest.mark.performance. PR pipelines run smoke only. Nightly runs full regression. On-demand runs security. Reduces CI friction while maintaining coverage.'},
+{h:'Parallelism Strategy',b:'pytest-xdist with -n auto uses all available CPU cores. Azure DevOps: use parallel jobs with test sharding (--shard N/M). Ensure tests are isolated (no shared state, no port conflicts). A 500-test suite at 45 min serial → 12 min with 4 parallel workers. This is the fastest ROI for slow CI.'},
+{h:'Flakiness Management',b:'Target: <2% flakiness rate. Measure: track pass/fail history per test in your CI system. Quarantine strategy: flaky tests go to a @quarantine mark, run separately, not blocking the main pipeline. Fix root cause within one sprint. A 5% flakiness rate means developers stop trusting the pipeline — they bypass it.'},
+{h:'Shift-Left Checkpoints',b:'Requirements phase: QA reviews stories for testability before refinement. Design phase: QA in architecture reviews to flag untestable designs. Development phase: test cases written alongside code (not after). PR phase: automated checks before merge. Each earlier checkpoint reduces the cost of defect detection by ~10x.'}
+],
+aiContext:'You are a DevOps and CI/CD expert specialising in test automation pipelines. The learner is a QA Manager who uses Azure DevOps, Playwright, and pytest. Focus on practical pipeline architecture and real-world optimisation strategies.'},
+
+{id:'l7',icon:'🏦',title:'BFSI Domain & Compliance Testing',
+summary:'Mutual funds, KYC, regulatory requirements, and audit-readiness for Indian BFSI.',
+notes:[
+{h:'Mutual Fund Transaction Flows',b:'Purchase: investor → AMC order book → NAV allocation → unit credit → confirmation. Redemption: request → lock-in check → NAV application (next business day) → unit debit → payout T+3. STP/SWP: systematic plans with date-based triggers. Each step has testable state transitions and failure modes.'},
+{h:'KYC Testing Requirements',b:'KYC flow tests: valid CKYC fetch (PAN → CKYC registry → pre-fill), video KYC session (connectivity, face match, document capture), re-KYC triggers (dormant accounts, address change), KYC rejection flow (rejection reason, appeal path). Test with: valid PAN, invalid PAN, NRI PAN, minor investor PAN — each has different rules.'},
+{h:'RBI/SEBI Compliance Test Areas',b:'Data localisation: PII stored only on Indian servers — validate via network trace and DB server location. Audit trail: every state change logged with timestamp, user, IP — test that logs are immutable. Transaction limits: SEBI-mandated per-transaction and daily limits — boundary value tests. Cooling period: redemption restrictions after large purchases.'},
+{h:'Regulatory Reporting Testing',b:'Reports for AMFI, RBI, SEBI have mandated formats. Test: correct file format (XML/JSON/fixed-width), all mandatory fields present, values reconcile with transaction DB, generation is idempotent (same report for same period), file delivery to regulator portal succeeds. Errors in regulatory reports = fines + license risk.'},
+{h:'BFSI Test Data Constraints',b:'Cannot use real investor PAN/Aadhaar in testing. Synthetic data must: pass format validation (PAN regex, Aadhaar Verhoeff checksum), be flagged as test data in the system (test investor flag), be excluded from regulatory reports, and be cleaned up before production migration. This requires a dedicated test data management strategy.'}
+],
+aiContext:'You are a BFSI domain expert and QA specialist with deep knowledge of Indian financial regulations (RBI, SEBI, AMFI guidelines). The learner is a QA Manager who has worked on mutual fund platforms (ABMF-style). Be precise about regulatory requirements.'},
+
+{id:'l8',icon:'🏃',title:'Agile QA — BDD, 3 Amigos, Shift-Left',
+summary:'Embedding quality into agile ceremonies, BDD with Gherkin, and sprint QA practices.',
+notes:[
+{h:'Three Amigos Session Structure',b:'Participants: BA (what), Dev (how), QA (what could go wrong). Duration: 20-30 min per story. QA\'s job: surface edge cases ("what if the investor\'s PAN has a special character?"), confirm acceptance criteria are testable, agree on scenarios that define "done." Output: refined AC, initial test scenario list. Run before every story enters the sprint.'},
+{h:'BDD with Gherkin — What It Actually Means',b:'BDD is about collaboration, not the Gherkin syntax. The scenario writing process forces BA, Dev, and QA to agree on concrete examples before coding starts. Feature files are living documentation. Anti-pattern: writing Gherkin after the fact to describe what was built — this misses the entire benefit.'},
+{h:'Definition of Done — QA Perspective',b:'Story is Done when: (1) All acceptance criteria pass, (2) Automation coverage updated (new test added or existing test updated), (3) No open Sev1/Sev2 defects, (4) Exploratory session completed (15-20 min time-boxed), (5) Performance impact assessed if applicable, (6) Peer reviewed by another QA. Stories that are "95% done" are not done.'},
+{h:'Sprint QA Anti-Patterns to Call Out',b:'(1) Testing bunched at end of sprint — devs finish day 8, QA has 2 days. Fix: parallel working from day 1. (2) QA not in refinement — untestable stories discovered in testing. Fix: Three Amigos mandatory. (3) Automation "later" — manual tests pile up. Fix: automation is part of the story definition of done. (4) QA as gate — QA signs off each story. Fix: shared quality ownership.'},
+{h:'Measuring Agile QA Health',b:'Metrics per sprint: (1) Stories with defects found in QA vs in sprint (escaped defects). (2) Stories failing QA first time (quality of dev handoff). (3) Automation coverage delta (growing or shrinking?). (4) Sprint completion rate (is QA the constraint?). Share these in retrospectives — data drives process improvement.'}
+],
+aiContext:'You are an Agile QA coach specialising in helping QA teams move from traditional gate-keeping to embedded quality engineering. The learner is a QA Manager transitioning teams to agile practices. Focus on practical, implementable advice.'},
+
+{id:'l9',icon:'🗄️',title:'Database Testing Deep Dive',
+summary:'SQL for testers, data integrity, ETL validation, and DB performance testing.',
+notes:[
+{h:'Essential SQL Patterns for Testers',b:'Orphan detection: LEFT JOIN ... WHERE child.fk IS NULL. Duplicate detection: GROUP BY key_columns HAVING COUNT(*) > 1. Data reconciliation: SUM/COUNT comparison between source and target tables. State transition validation: WHERE status NOT IN (valid_states). These 4 patterns cover 80% of DB test scenarios.'},
+{h:'ACID Testing Techniques',b:'Atomicity: start transaction, execute half, kill the connection — verify no partial data committed. Consistency: insert data violating a constraint — verify rejection. Isolation: run two concurrent transactions against the same row — verify dirty read does not occur (use READ COMMITTED). Durability: commit a transaction, simulate DB restart — verify data persists.'},
+{h:'ETL Testing Checklist',b:'(1) Row count: source COUNT = target COUNT (after filters). (2) Field mapping: spot-check 10 records across all transformed columns. (3) Null handling: source NULLs → correct default or rejection. (4) Duplicate handling: does re-running the ETL duplicate records? (5) Rejected records: bad data in error table with reason code. (6) Business totals: SUM(amount) source = SUM(amount) target.'},
+{h:'Query Performance Testing',b:'Baseline query with EXPLAIN ANALYZE before and after data volume increases. Key metrics: execution time, rows scanned, sequential vs index scan. A query that takes 50ms at 10K rows may take 50s at 10M rows without the right index. Performance test the DB queries with production-volume data in staging before release.'},
+{h:'Database Migration Testing',b:'Pre-migration: snapshot row counts and checksums per table. Run migration in staging with production-volume data copy. Post-migration: compare row counts, spot-check data values, run application smoke tests, verify stored procedures compile and execute correctly. Rollback test: run rollback script, verify return to pre-migration state. Never skip rollback testing.'}
+],
+aiContext:'You are a database testing expert with deep SQL knowledge across PostgreSQL, Oracle, and SQL Server. The learner is a QA Manager who writes SQL for test validation but wants to deepen database testing skills for BFSI platforms. Be technical and precise.'}
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let state = { view: 'dashboard', mid: null, tab: 'topics', quizIdx: 0, quizAns: {}, quizDone: false };
+let progress = loadProgress();
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem('qaprep_progress') || '{}'); } catch(e) { return {}; }
+}
+function saveProgress() { localStorage.setItem('qaprep_progress', JSON.stringify(progress)); }
+
+function getModuleProgress(mid) {
+  const m = ALL_MODULES.find(x => x.id === mid);
+  if (!m) return 0;
+  const p = progress[mid] || {};
+  let total = 0, done = 0;
+  if (m.mcqs?.length)          { total += m.mcqs.length;         done += Object.keys(p.mcq || {}).length; }
+  if (m.mock?.length)          { total += m.mock.length;         done += Object.keys(p.mock || {}).length; }
+  if (m.scenarios?.length)     { total += m.scenarios.length;    done += Object.keys(p.sc || {}).length; }
+  if (m.codeChallenge?.length) { total += m.codeChallenge.length;done += Object.keys(p.code || {}).length; }
+  return total === 0 ? 0 : Math.round((done / total) * 100);
+}
+
+function getOverallProgress() {
+  const pcts = ALL_MODULES.map(m => getModuleProgress(m.id));
+  return Math.round(pcts.reduce((a, b) => a + b, 0) / pcts.length);
+}
+
+function markMCQ(mid, idx, ans) {
+  if (!progress[mid]) progress[mid] = {};
+  if (!progress[mid].mcq) progress[mid].mcq = {};
+  progress[mid].mcq[idx] = ans;
+  saveProgress();
+  updateSidebar();
+}
+function markMock(mid, idx, rating) {
+  if (!progress[mid]) progress[mid] = {};
+  if (!progress[mid].mock) progress[mid].mock = {};
+  progress[mid].mock[idx] = rating;
+  saveProgress();
+  updateSidebar();
+}
+function markScenario(mid, idx) {
+  if (!progress[mid]) progress[mid] = {};
+  if (!progress[mid].sc) progress[mid].sc = {};
+  progress[mid].sc[idx] = true;
+  saveProgress();
+  updateSidebar();
+}
+function markCode(mid, idx) {
+  if (!progress[mid]) progress[mid] = {};
+  if (!progress[mid].code) progress[mid].code = {};
+  progress[mid].code[idx] = true;
+  saveProgress();
+  updateSidebar();
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+function navigate(view, mid) {
+  state = { view, mid: mid || null, tab: 'topics', quizIdx: 0, quizAns: {}, quizDone: false };
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if (view === 'dashboard')    document.getElementById('nav-dashboard')?.classList.add('active');
+  else if (view === 'learnhub') document.getElementById('nav-learnhub')?.classList.add('active');
+  else if (view === 'learntopic') document.getElementById('nav-learn-' + mid)?.classList.add('active');
+  else if (view === 'settings')  document.getElementById('nav-settings')?.classList.add('active');
+  else document.getElementById('nav-' + mid)?.classList.add('active');
+  render();
+}
+
+function switchTab(tab) {
+  state.tab = tab;
+  if (tab === 'mcq') { state.quizIdx = 0; state.quizAns = {}; state.quizDone = false; }
+  render();
+}
+
+// ─── UPDATE SIDEBAR ──────────────────────────────────────────────────────────
+function updateSidebar() {
+  const overall = getOverallProgress();
+  const dashoffset = 239 - (239 * overall / 100);
+  document.getElementById('ring-circle').style.strokeDashoffset = dashoffset;
+  document.getElementById('ring-circle').style.stroke = overall >= 80 ? '#16a34a' : '#2563eb';
+  document.getElementById('ring-pct').textContent = overall + '%';
+  const badge = document.getElementById('ready-badge');
+  if (badge) badge.style.display = overall >= 80 ? 'block' : 'none';
+  ALL_MODULES.forEach(m => {
+    const el = document.getElementById('nav-pct-' + m.id);
+    if (el) el.textContent = getModuleProgress(m.id) + '%';
+  });
+}
+
+function buildSidebar() {
+  const navMod = document.getElementById('nav-modules');
+  navMod.innerHTML = ALL_MODULES.map(m => `
+    <button class="nav-btn" id="nav-${m.id}" onclick="navigate('module','${m.id}')">
+      <span class="ico">${m.icon}</span>
+      <span class="ttl">${m.title}</span>
+      <span class="pct" id="nav-pct-${m.id}">0%</span>
+    </button>`).join('');
+  const navLearn = document.getElementById('nav-learn-topics');
+  navLearn.innerHTML = LEARN_TOPICS.map(t => `
+    <button class="nav-btn" id="nav-learn-${t.id}" onclick="navigate('learntopic','${t.id}')">
+      <span class="ico">${t.icon}</span>
+      <span class="ttl" style="font-size:11px">${t.title}</span>
+    </button>`).join('');
+  updateSidebar();
+  updateApiDot();
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function render() {
+  const v = document.getElementById('view');
+  if (state.view === 'dashboard')    v.innerHTML = renderDashboard();
+  else if (state.view === 'module')  v.innerHTML = renderModule(ALL_MODULES.find(x => x.id === state.mid));
+  else if (state.view === 'learnhub')  v.innerHTML = renderLearnHub();
+  else if (state.view === 'learntopic') v.innerHTML = renderLearnTopic(LEARN_TOPICS.find(x => x.id === state.mid));
+  else if (state.view === 'settings')  v.innerHTML = renderSettings();
+  updateSidebar();
+}
+
+function renderDashboard() {
+  const overall = getOverallProgress();
+  const completed = ALL_MODULES.filter(m => getModuleProgress(m.id) === 100).length;
+  const mcqsDone = ALL_MODULES.reduce((a, m) => a + Object.keys((progress[m.id] || {}).mcq || {}).length, 0);
+  const mockDone = ALL_MODULES.reduce((a, m) => a + Object.keys((progress[m.id] || {}).mock || {}).length, 0);
+
+  return `
+  <div class="pg-head">
+    <div class="ico">🏠</div>
+    <div><h1>QA Interview Prep Hub</h1><p>Sivanandam Sivasubramanian — Test Manager / Sr. Automation Engineer</p></div>
+  </div>
+  <div class="content">
+    ${overall >= 80 ? `<div class="ready-banner"><div class="trophy">🏆</div><div><h2>Interview Ready!</h2><p>You have completed ${overall}% of the curriculum. You are ready to interview.</p></div></div>` : ''}
+    <div class="stats-row">
+      <div class="stat-card p"><div class="stat-val">${overall}%</div><div class="stat-lbl">Overall Progress</div></div>
+      <div class="stat-card s"><div class="stat-val">${completed}/${ALL_MODULES.length}</div><div class="stat-lbl">Modules Complete</div></div>
+      <div class="stat-card w"><div class="stat-val">${mcqsDone}</div><div class="stat-lbl">MCQs Answered</div></div>
+      <div class="stat-card"><div class="stat-val">${mockDone}</div><div class="stat-lbl">Mock Q&amp;As Done</div></div>
+    </div>
+    ${overall < 80 ? `<div class="card" style="background:#fef3c7;border-color:#fde68a;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:22px">🎯</span>
+        <div>
+          <div style="font-weight:600;color:#92400e">Target: 80% to unlock Interview Ready status</div>
+          <div style="font-size:12px;color:#78350f;margin-top:2px">You need ${80 - overall}% more progress. Keep going!</div>
+        </div>
+        <div style="margin-left:auto">
+          <div class="pbar-wrap" style="width:200px;height:8px"><div class="pbar" style="width:${overall}%;background:#d97706"></div></div>
+          <div style="font-size:11px;color:#92400e;text-align:right;margin-top:3px">${overall}% / 80%</div>
+        </div>
+      </div>
+    </div>` : ''}
+    <div class="card-title" style="font-size:16px;font-weight:700;color:#111827;margin-bottom:12px">📚 Curriculum Modules</div>
+    <div class="mod-grid">
+      ${ALL_MODULES.map(m => {
+        const pct = getModuleProgress(m.id);
+        const types = [m.mcqs?.length ? `<span class="badge bm">${m.mcqs.length} MCQ</span>` : '', m.mock?.length ? `<span class="badge bi">${m.mock.length} Mock</span>` : '', m.scenarios?.length ? `<span class="badge bs">${m.scenarios.length} Scenario</span>` : '', m.codeChallenge?.length ? `<span class="badge bc">${m.codeChallenge.length} Code</span>` : ''].filter(Boolean).join('');
+        return `<div class="mod-card" onclick="navigate('module','${m.id}')">
+          <div class="mod-card-hd"><div class="mod-card-ico">${m.icon}</div><div><div class="mod-card-ttl">${m.title}</div><div class="mod-card-meta">${m.desc}</div></div></div>
+          <div class="pbar-wrap"><div class="pbar${pct===100?' done':''}" style="width:${pct}%"></div></div>
+          <div class="plbl"><span>${pct}% complete</span>${pct===100?'<span style="color:#16a34a">✓ Done</span>':''}</div>
+          <div class="badges">${types}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="text-align:center;margin-top:10px">
+      <button class="btn btn-o btn-sm" onclick="if(confirm('Reset all progress?')){localStorage.removeItem('qaprep_progress');progress={};render()}">↺ Reset All Progress</button>
+    </div>
+  </div>`;
+}
+
+function renderModule(m) {
+  const tabs = [
+    ['topics','📖 Topics'], ['mcq','🧠 MCQ Quiz'],
+    ['mock','🎤 Mock Interview'], ['scenario','🔍 Scenarios'],
+    ...(m.codeChallenge ? [['code','💻 Code']] : [])
+  ];
+  const pct = getModuleProgress(m.id);
+  return `
+  <div class="pg-head">
+    <div class="ico">${m.icon}</div>
+    <div style="flex:1"><h1>${m.title}</h1><p>${m.desc}</p></div>
+    <div style="text-align:right">
+      <div style="font-size:22px;font-weight:800;color:${pct>=80?'#16a34a':'#2563eb'}">${pct}%</div>
+      <div style="font-size:11px;color:#6b7280">module progress</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="tabs">${tabs.map(([t,l]) => `<button class="tab${state.tab===t?' active':''}" onclick="switchTab('${t}')">${l}</button>`).join('')}</div>
+    ${state.tab==='topics' ? renderTopics(m) : ''}
+    ${state.tab==='mcq' ? renderMCQ(m) : ''}
+    ${state.tab==='mock' ? renderMock(m) : ''}
+    ${state.tab==='scenario' ? renderScenario(m) : ''}
+    ${state.tab==='code' && m.codeChallenge ? renderCode(m) : ''}
+  </div>`;
+}
+
+function renderTopics(m) {
+  return `<div class="card">
+    <div class="card-title">📖 Key Topics to Master</div>
+    <div class="topic-grid">${m.topics.map(t => `<div class="topic-item">${t}</div>`).join('')}</div>
+  </div>
+  <div class="card" style="background:#eff6ff;border-color:#bfdbfe">
+    <div class="card-title">💡 Why This Module Matters for Your Role</div>
+    <p style="font-size:13px;color:#1e40af;line-height:1.6">These topics map directly to your ${m.title} responsibilities at Impiger and your project experience. Interviewers will expect concrete examples from your BFSI (ABMF), OTT (Sun NXT), IoT (Titan/Noise), and CLM (PwC) work. Prepare 2-3 specific stories per major topic area.</p>
+  </div>`;
+}
+
+function renderMCQ(m) {
+  if (!m.mcqs?.length) return `<div class="card"><p class="text-gray">No MCQs for this module.</p></div>`;
+  if (state.quizDone) {
+    const total = m.mcqs.length;
+    const correct = m.mcqs.filter((q,i) => state.quizAns[i] === q.ans).length;
+    const pct = Math.round((correct/total)*100);
+    const pass = pct >= 70;
+    return `<div class="score-wrap">
+      <div class="score-circle ${pass?'pass':'fail'}">${pct}%</div>
+      <div style="font-size:18px;font-weight:700;color:#111827;margin-bottom:6px">${pass?'✅ Well done!':'📚 Keep practising'}</div>
+      <div style="font-size:14px;color:#6b7280;margin-bottom:20px">${correct} / ${total} correct</div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-p" onclick="state.quizIdx=0;state.quizAns={};state.quizDone=false;render()">↺ Retake Quiz</button>
+        <button class="btn btn-o" onclick="switchTab('mock')">Next: Mock Interview →</button>
+      </div>
+    </div>
+    <hr class="sep">
+    ${m.mcqs.map((q,i) => {
+      const sel = state.quizAns[i];
+      const correct = sel === q.ans;
+      return `<div class="q-card">
+        <div class="q-num">Q${i+1} — ${correct?'✅ Correct':'❌ Incorrect'}</div>
+        <div class="q-text">${q.q}</div>
+        ${q.opts.map((o,j) => {
+          let cls = 'opt';
+          if (j === sel && j === q.ans) cls += ' correct';
+          else if (j === sel) cls += ' wrong';
+          else if (j === q.ans) cls += ' show-ok';
+          return `<div class="${cls}"><div class="opt-ltr">${['A','B','C','D'][j]}</div>${o}</div>`;
+        }).join('')}
+        <div class="expl"><strong>Explanation:</strong> ${q.expl}</div>
+      </div>`;
+    }).join('')}`;
+  }
+
+  const idx = state.quizIdx;
+  const q = m.mcqs[idx];
+  const sel = state.quizAns[idx];
+  const submitted = sel !== undefined;
+  const correct = submitted && sel === q.ans;
+  return `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="q-num">Question ${idx+1} of ${m.mcqs.length}</div>
+      <div class="pbar-wrap" style="width:180px"><div class="pbar" style="width:${((idx+1)/m.mcqs.length)*100}%"></div></div>
+    </div>
+    <div class="q-card">
+      <div class="q-num">Q${idx+1}</div>
+      <div class="q-text">${q.q}</div>
+      ${q.opts.map((o,j) => {
+        let cls = 'opt';
+        if (submitted) {
+          if (j === sel && j === q.ans) cls += ' correct';
+          else if (j === sel) cls += ' wrong';
+          else if (j === q.ans) cls += ' show-ok';
+        } else if (j === sel) cls += ' sel';
+        const click = submitted ? '' : `onclick="state.quizAns[${idx}]=${j};render()"`;
+        return `<div class="${cls}" ${click}><div class="opt-ltr">${['A','B','C','D'][j]}</div>${o}</div>`;
+      }).join('')}
+      ${submitted ? `<div class="expl"><strong>${correct?'✅ Correct!':'❌ Incorrect.'}</strong> ${q.expl}</div>` : ''}
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:6px">
+      ${!submitted && sel !== undefined ? `<button class="btn btn-p" onclick="markMCQ('${m.id}',${idx},state.quizAns[${idx}]);render()">Submit Answer</button>` : ''}
+      ${!submitted && sel === undefined ? `<button class="btn btn-p" disabled>Select an answer</button>` : ''}
+      ${submitted && idx < m.mcqs.length-1 ? `<button class="btn btn-p" onclick="state.quizIdx=${idx+1};render()">Next Question →</button>` : ''}
+      ${submitted && idx === m.mcqs.length-1 ? `<button class="btn btn-s" onclick="state.quizDone=true;render()">View Results 🏁</button>` : ''}
+    </div>`;
+}
+
+function renderMock(m) {
+  if (!m.mock?.length) return `<div class="card"><p class="text-gray">No mock interview questions for this module.</p></div>`;
+  const p = progress[m.id] || {};
+  return m.mock.map((q,i) => {
+    const done = (p.mock || {})[i];
+    return `<div class="mq-card">
+      <div class="mq-hd">
+        <div class="mq-num">${i+1}</div>
+        <div class="mq-txt">${q.q}</div>
+        <div class="mq-cat">${q.cat}</div>
+        ${done ? '<span class="done-chk">✓</span>' : ''}
+      </div>
+      <textarea class="ans" id="mock-${m.id}-${i}" placeholder="Type your answer using STAR method: Situation → Task → Action → Result (with metrics)...">${''}</textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-o btn-sm" onclick="document.getElementById('ma-${m.id}-${i}').style.display=document.getElementById('ma-${m.id}-${i}').style.display==='none'?'block':'none'">👁 View Model Answer</button>
+        ${done ? '' : `<button class="btn btn-p btn-sm" onclick="showStars('${m.id}',${i})">Mark as Practised</button>`}
+        ${done ? `<span style="font-size:12px;color:#16a34a;align-self:center">✓ Practised (${done}★)</span>` : ''}
+      </div>
+      <div id="ma-${m.id}-${i}" class="model-ans" style="display:none">
+        <h4>✅ Model Answer</h4>
+        <p>${q.ans}</p>
+      </div>
+      <div id="stars-${m.id}-${i}" class="stars" style="display:${done?'none':'none'}">
+        <span>Rate your answer:</span>
+        ${[1,2,3,4,5].map(n => `<button class="star" id="star-${m.id}-${i}-${n}" onclick="rateMock('${m.id}',${i},${n})">★</button>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function showStars(mid, idx) {
+  document.getElementById(`stars-${mid}-${idx}`).style.display = 'flex';
+}
+function rateMock(mid, idx, rating) {
+  markMock(mid, idx, rating);
+  document.getElementById(`stars-${mid}-${idx}`).style.display = 'none';
+  render();
+}
+
+function renderScenario(m) {
+  if (!m.scenarios?.length) return `<div class="card"><p class="text-gray">No scenarios for this module.</p></div>`;
+  const p = progress[m.id] || {};
+  return m.scenarios.map((s,i) => {
+    const done = (p.sc || {})[i];
+    return `<div class="card">
+      <div class="card-title">🔍 ${s.title}</div>
+      <div class="sc-box"><strong>Scenario:</strong> ${s.setup}</div>
+      <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px">✅ What Your Answer Should Cover:</div>
+      <ul class="crit-list">${s.criteria.map(c => `<li>${c}</li>`).join('')}</ul>
+      <textarea class="ans" style="margin-top:14px" placeholder="Write your approach here..."></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <button class="btn btn-o btn-sm" onclick="document.getElementById('ideal-${m.id}-${i}').style.display=document.getElementById('ideal-${m.id}-${i}').style.display==='none'?'block':'none'">💡 Reveal Ideal Approach</button>
+        ${done ? '<span style="font-size:12px;color:#16a34a;align-self:center">✓ Completed</span>' : `<button class="btn btn-s btn-sm" onclick="markScenario('${m.id}',${i});render()">Mark Complete ✓</button>`}
+      </div>
+      <div id="ideal-${m.id}-${i}" class="ideal-box">${s.ideal}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderCode(m) {
+  if (!m.codeChallenge?.length) return `<div class="card"><p class="text-gray">No code challenges.</p></div>`;
+  const p = progress[m.id] || {};
+  return m.codeChallenge.map((c,i) => {
+    const done = (p.code || {})[i];
+    return `<div class="card">
+      <div class="card-title">💻 ${c.title} ${done?'<span style="color:#16a34a;font-size:13px">✓ Done</span>':''}</div>
+      <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.5">${c.desc}</p>
+      <div class="acc-hd" onclick="toggleAcc('hints-${m.id}-${i}')">💡 Hints <span>▾</span></div>
+      <div class="acc-body" id="hints-${m.id}-${i}">
+        ${c.hints.map(h => `<div class="hint-box">→ ${h}</div>`).join('')}
+      </div>
+      <textarea class="ans" style="min-height:180px;font-family:Courier New,monospace;font-size:12px" placeholder="Write your solution here..."></textarea>
+      <div class="acc-hd" onclick="toggleAcc('sol-${m.id}-${i}')">✅ View Solution & Explanation <span>▾</span></div>
+      <div class="acc-body" id="sol-${m.id}-${i}">
+        <div class="code-block">${escHtml(c.solution)}</div>
+        <div style="font-size:13px;color:#374151;margin-top:10px;line-height:1.5;background:#f0fdf4;padding:12px;border-radius:6px;border-left:4px solid #16a34a"><strong>Key Patterns:</strong> ${c.expl}</div>
+      </div>
+      ${done ? '' : `<button class="btn btn-s btn-sm" style="margin-top:10px" onclick="markCode('${m.id}',${i});render()">Mark as Reviewed ✓</button>`}
+    </div>`;
+  }).join('');
+}
+
+function toggleAcc(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─── CLAUDE API ──────────────────────────────────────────────────────────────
+function getApiKey() { return localStorage.getItem('qaprep_claude_key') || ''; }
+function saveApiKey(k) {
+  localStorage.setItem('qaprep_claude_key', k.trim());
+  updateApiDot();
+}
+function updateApiDot() {
+  const dot = document.getElementById('api-dot');
+  if (dot) dot.style.background = getApiKey() ? '#16a34a' : '#dc2626';
+}
+
+function isLocal() {
+  return location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+}
+
+async function callClaude(messages, systemPrompt) {
+  const payload = { model: 'claude-opus-4-6', max_tokens: 1024, system: systemPrompt, messages };
+
+  if (isLocal()) {
+    // Local development: call Anthropic directly using the localStorage key
+    const key = getApiKey();
+    if (!key) throw new Error('NO_KEY');
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${res.status}`);
+    }
+    const data = await res.json();
+    return data.content[0].text;
+  } else {
+    // Hosted on Netlify: call the serverless proxy — API key stays server-side
+    const res = await fetch('/api/claude', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${res.status}`);
+    }
+    const data = await res.json();
+    return data.content[0].text;
+  }
+}
+
+// ─── LEARN RENDER ────────────────────────────────────────────────────────────
+function renderLearnHub() {
+  return `
+  <div class="pg-head">
+    <div class="ico">📚</div>
+    <div><h1>Learning Hub</h1><p>Structured course material with AI Tutor — powered by Claude</p></div>
+  </div>
+  <div class="content">
+    ${isLocal() && !getApiKey() ? `<div class="key-missing" style="margin-bottom:16px">⚠️ Running locally — no API key set. AI Tutor is disabled. <button class="btn btn-o btn-sm" style="margin-left:10px" onclick="navigate('settings')">Add Key ⚙️</button></div>` : ''}
+    <div class="card-title" style="font-size:16px;font-weight:700;color:#111827;margin-bottom:12px">🎓 Course Topics</div>
+    <div class="learn-grid">
+      ${LEARN_TOPICS.map(t => `
+        <div class="learn-card" onclick="navigate('learntopic','${t.id}')">
+          <div class="learn-badge">Learn</div>
+          <div class="learn-card-ico">${t.icon}</div>
+          <div class="learn-card-ttl">${t.title}</div>
+          <div class="learn-card-sum">${t.summary}</div>
+          <div style="margin-top:10px;font-size:11px;color:#7c3aed;font-weight:600">${t.notes.length} concepts + AI Tutor →</div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderLearnTopic(t) {
+  const chatId = `chat-${t.id}`;
+  const msgsId = `msgs-${t.id}`;
+  return `
+  <div class="pg-head">
+    <div class="ico">${t.icon}</div>
+    <div><h1>${t.title}</h1><p>${t.summary}</p></div>
+    <button class="btn btn-o btn-sm" style="margin-left:auto" onclick="navigate('learnhub')">← All Topics</button>
+  </div>
+  <div class="content">
+    <div class="card-title" style="font-size:15px;font-weight:700;color:#111827;margin-bottom:10px">📖 Core Concepts</div>
+    ${t.notes.map(n => `
+      <div class="note-card">
+        <div class="note-h">${n.h}</div>
+        <div class="note-b">${n.b}</div>
+      </div>`).join('')}
+
+    <div class="ai-panel" style="margin-top:20px">
+      <div class="ai-panel-hd">🤖 AI Tutor — ${t.title}</div>
+      ${isLocal() && !getApiKey() ? `<div class="key-missing">Running locally — no API key set. <button class="btn btn-o btn-sm" style="margin-left:8px" onclick="navigate('settings')">Add Key ⚙️</button></div>` : `
+      <div class="ai-quick-btns">
+        <button class="ai-quick" onclick="sendQuick('${t.id}','Summarise the most important concept in ${t.title} for a QA Manager interview.')">💡 Key concept</button>
+        <button class="ai-quick" onclick="sendQuick('${t.id}','Give me a BFSI real-world example for ${t.title}.')">🏦 BFSI example</button>
+        <button class="ai-quick" onclick="sendQuick('${t.id}','What is the trickiest interview question about ${t.title} and how should I answer it?')">🎯 Tricky question</button>
+        <button class="ai-quick" onclick="generateExercise('${t.id}')">💻 Generate exercise</button>
+      </div>
+      <div class="ai-msgs" id="${msgsId}"></div>
+      <div id="exercise-out-${t.id}" class="exercise-out"></div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="${chatId}" placeholder="Ask anything about ${t.title}..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat('${t.id}')}" />
+        <button class="btn-ai" onclick="sendChat('${t.id}')">Send</button>
+      </div>`}
+    </div>
+  </div>`;
+}
+
+// per-topic conversation history stored in memory (not persisted)
+const learnChats = {};
+
+function getChat(tid) {
+  if (!learnChats[tid]) learnChats[tid] = [];
+  return learnChats[tid];
+}
+
+function renderMsgs(tid) {
+  const el = document.getElementById(`msgs-${tid}`);
+  if (!el) return;
+  const msgs = getChat(tid);
+  el.innerHTML = msgs.map(m => `<div class="ai-msg ${m.role==='user'?'user':'ai'}">${escHtml(m.content)}</div>`).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function addThinking(tid) {
+  const el = document.getElementById(`msgs-${tid}`);
+  if (!el) return;
+  const div = document.createElement('div');
+  div.className = 'ai-msg thinking';
+  div.id = `thinking-${tid}`;
+  div.textContent = 'Claude is thinking…';
+  el.appendChild(div);
+  el.scrollTop = el.scrollHeight;
+}
+
+function removeThinking(tid) {
+  document.getElementById(`thinking-${tid}`)?.remove();
+}
+
+async function sendChat(tid) {
+  const input = document.getElementById(`chat-${tid}`);
+  if (!input) return;
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  const topic = LEARN_TOPICS.find(t => t.id === tid);
+  const chat = getChat(tid);
+  chat.push({ role: 'user', content: text });
+  renderMsgs(tid);
+  addThinking(tid);
+  try {
+    const reply = await callClaude(
+      chat.map(m => ({ role: m.role, content: m.content })),
+      topic.aiContext
+    );
+    removeThinking(tid);
+    chat.push({ role: 'assistant', content: reply });
+    renderMsgs(tid);
+  } catch(e) {
+    removeThinking(tid);
+    chat.push({ role: 'assistant', content: e.message === 'NO_KEY' ? 'Please add your Claude API key in Settings.' : `Error: ${e.message}` });
+    renderMsgs(tid);
+  }
+}
+
+async function sendQuick(tid, prompt) {
+  const input = document.getElementById(`chat-${tid}`);
+  if (input) input.value = prompt;
+  await sendChat(tid);
+}
+
+async function generateExercise(tid) {
+  const topic = LEARN_TOPICS.find(t => t.id === tid);
+  const out = document.getElementById(`exercise-out-${tid}`);
+  if (!out) return;
+  out.style.display = 'block';
+  out.textContent = 'Generating exercise…';
+  try {
+    const result = await callClaude(
+      [{ role: 'user', content: `Generate a practical, hands-on exercise for a senior QA Manager to practise ${topic.title}. Include: a realistic scenario, specific tasks to complete, success criteria, and a sample solution. Keep it concise and actionable.` }],
+      topic.aiContext
+    );
+    out.textContent = result;
+  } catch(e) {
+    out.textContent = e.message === 'NO_KEY' ? 'Please add your Claude API key in Settings first.' : `Error: ${e.message}`;
+  }
+}
+
+// ─── SETTINGS RENDER ─────────────────────────────────────────────────────────
+function renderSettings() {
+  const local = isLocal();
+  const key   = getApiKey();
+  const masked = key ? key.slice(0,8) + '••••••••••••••••' + key.slice(-4) : '';
+  return `
+  <div class="pg-head">
+    <div class="ico">⚙️</div>
+    <div><h1>API Settings</h1><p>Configure the Claude AI Tutor — model: <strong>claude-opus-4-6</strong></p></div>
+  </div>
+  <div class="content">
+
+    ${local ? `
+    <!-- LOCAL DEV: enter key manually -->
+    <div class="settings-panel">
+      <h3>🔑 Claude API Key <span style="font-size:11px;background:#fef3c7;color:#92400e;padding:2px 7px;border-radius:8px;margin-left:6px">Local dev only</span></h3>
+      <p style="font-size:12px;color:var(--g6);margin-bottom:12px;line-height:1.5">Running locally — enter your API key here. It is stored in <code>localStorage</code> and sent directly to Anthropic. Not used when deployed to Netlify.</p>
+      <div class="api-input-row">
+        <input class="api-key-input" id="api-key-field" type="password" placeholder="sk-ant-api03-…" value="${key}" />
+        <button class="btn btn-p btn-sm" onclick="saveApiKey(document.getElementById('api-key-field').value);render()">Save</button>
+        ${key ? `<button class="btn btn-o btn-sm" onclick="if(confirm('Remove API key?')){saveApiKey('');render()}">Remove</button>` : ''}
+      </div>
+      <div class="api-status ${key?'ok':'missing'}">${key ? `✓ Key set (${masked})` : '✗ No key — AI Tutor disabled'}</div>
+    </div>` : `
+    <!-- HOSTED ON NETLIFY: key is an env var -->
+    <div class="settings-panel">
+      <h3>🔑 Claude API Key <span style="font-size:11px;background:#dcfce7;color:#16a34a;padding:2px 7px;border-radius:8px;margin-left:6px">Netlify env var</span></h3>
+      <p style="font-size:12px;color:var(--g6);margin-bottom:10px;line-height:1.5">Deployed on Netlify — API calls are proxied through a serverless function. The key is stored securely as an environment variable and <strong>never exposed to the browser</strong>.</p>
+      <div style="background:var(--g1);border:1px solid var(--g3);border-radius:7px;padding:12px;font-size:12px;color:var(--g7);line-height:1.8">
+        <strong>To set or rotate the key:</strong><br>
+        1. Go to your Netlify dashboard<br>
+        2. Site configuration → Environment variables<br>
+        3. Add variable: <code style="background:#e5e7eb;padding:1px 5px;border-radius:3px">CLAUDE_API_KEY</code> = your Anthropic key<br>
+        4. Trigger a redeploy (or it takes effect on next function invocation)
+      </div>
+    </div>`}
+
+    <div class="settings-panel">
+      <h3>🤖 Model</h3>
+      <p style="font-size:12px;color:var(--g6);line-height:1.5">Using <strong>claude-opus-4-6</strong> — Anthropic's most capable model for nuanced QA coaching and domain-specific explanations.</p>
+    </div>
+    <div class="settings-panel">
+      <h3>🔒 Privacy</h3>
+      <p style="font-size:12px;color:var(--g6);line-height:1.5">
+        ${local
+          ? 'Running locally — API key in localStorage, calls go directly to Anthropic. Progress and conversation history are local to this browser.'
+          : 'Hosted on Netlify — API key is a server-side env var. API calls are proxied through a Netlify function; the key never reaches your browser. Progress and conversation history are stored in your browser\'s localStorage.'}
+      </p>
+    </div>
+    <button class="btn btn-p" onclick="navigate('learnhub')">← Back to Learning Hub</button>
+  </div>`;
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+buildSidebar();
+render();
+</script>
+</body>
+</html>
